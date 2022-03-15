@@ -1,15 +1,21 @@
 <?php
-/** @var \Demo\TinyMcePlugin\Block\Adminhtml\FireRobot $block */
+/** @var \Scaleflex\FileRobot\Block\Adminhtml\FireRobot $block */
 ?>
-<link rel="stylesheet" type="text/css" href="https://cdn.scaleflex.it/plugins/filerobot-widget/1.0.73/filerobot-widget.min.css?func=proxy" />
-<script type="text/javascript" src="https://cdn.scaleflex.it/plugins/filerobot-widget/1.0.73/filerobot-widget.min.js?func=proxy"></script>
+<link rel="stylesheet" type="text/css"
+      href="https://cdn.scaleflex.it/plugins/filerobot-widget/1.0.73/filerobot-widget.min.css?func=proxy"/>
+<script type="text/javascript"
+        src="https://cdn.scaleflex.it/plugins/filerobot-widget/1.0.73/filerobot-widget.min.js?func=proxy"></script>
 
 <button style="display: none" id="file-robot-modal-btn"></button>
 <div id="modal-content">
     <div id="filerobot-widget"></div>
 </div>
 <script type="text/javascript">
-    require(["jquery", "Magento_Ui/js/modal/modal"],function(jQuery, modal) {
+    require(["jquery", "Magento_Ui/js/modal/modal"], function (jQuery, modal) {
+        const container  = '<?php echo $block->getConfig()->getToken(); ?>';
+        const templateId = '<?php echo $block->getConfig()->getTemplateId(); ?>';
+        const uploadDir  = '<?php echo $block->getConfig()->getUploadDir(); ?>';
+
         var options = {
             type: 'popup',
             responsive: true,
@@ -17,32 +23,25 @@
             buttons: []
         };
 
-        const Filerobot = window.Filerobot
+        const Filerobot = window.Filerobot;
 
-        const demoContainer = 'fyjnhqim'
-        const demoSecurityTemplateID = 'SECU_C19B5A2656F645FAA4FFA40D40C6F599'
 
-        var popup = modal(options, jQuery('#modal-content'))
+        var popup = modal(options, jQuery('#modal-content'));
+
         const filerobot = Filerobot.Core({
-            securityTemplateID: demoSecurityTemplateID,
-            container: demoContainer
+            securityTemplateID: templateId,
+            container: container
         });
 
-        const Explorer = Filerobot.Explorer
-        const XHRUpload = Filerobot.XHRUpload
-        const ImageEditor = Filerobot.ImageEditor
-        const Webcam = Filerobot.Webcam
+        const Explorer = Filerobot.Explorer;
+        const XHRUpload = Filerobot.XHRUpload;
+        const ImageEditor = Filerobot.ImageEditor;
+        const Webcam = Filerobot.Webcam;
 
         filerobot
             .use(Explorer, {
                 config: {
-                    limit: 50,
-                    tagging: {
-                        language: 'en',
-                        confidence: 60,
-                        limit: 10,
-                        provider: 'google'
-                    }
+                    rootFolderPath: uploadDir ?? '/'
                 },
                 target: '#filerobot-widget',
                 inline: true,
@@ -57,24 +56,24 @@
             })
             .use(XHRUpload)
             .use(ImageEditor, {
-                cloudimageToken: 'SECU_C19B5A2656F645FAA4FFA40D40C6F599' // not needed if the same container value provided in core
+                cloudimageToken: templateId
             })
             .use(Webcam)
-            .on('export', function(files, popupExportSuccessMsgFn, downloadFilesPackagedFn, downloadFileFn) {
+            .on('export', function (files, popupExportSuccessMsgFn, downloadFilesPackagedFn, downloadFileFn) {
                 files.forEach((selected, key) => {
                     window.fileRobotActiveEditor.execCommand('mceInsertContent', false, '<div>' +
-                        '<img src="'+selected.file.url.cdn+'" alt="'+selected.file.url.name+'" /> ' +
+                        '<img src="' + selected.file.url.cdn + '" alt="' + selected.file.url.name + '" /> ' +
                         '</div>');
                 })
                 window.fileRobotActiveEditor = undefined
                 jQuery('#modal-content').modal('closeModal')
                 files = []
                 return false
-            })
+            });
 
 
-        jQuery("#file-robot-modal-btn").click(function() {
-            jQuery('#modal-content').modal('openModal')
-        })
-    })
+        jQuery("#file-robot-modal-btn").click(function () {
+            jQuery('#modal-content').modal('openModal');
+        });
+    });
 </script>

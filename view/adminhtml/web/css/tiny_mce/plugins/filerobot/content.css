@@ -1,4 +1,4 @@
-#tinymce div.textwithbox {
+#tinymce div.filerobot {
     position: relative;
     border: 1px solid #888;
     background: #eee;
@@ -6,8 +6,8 @@
     padding: 1%;
 }
 
-#tinymce div.textwithbox::before {
-    content: 'Text with Box';
+#tinymce div.filerobot::before {
+    content: 'Scaleflex - File Robot';
     position: absolute;
     left: 0;
     top: 0;
@@ -18,16 +18,18 @@
     font-size: 9px;
 }
 
-#tinymce div.textwithbox .textwithbox-left,
-#tinymce div.textwithbox .textwithbox-right {
+#tinymce div.filerobot .filerobot-left,
+#tinymce div.filerobot .filerobot-right {
     float: left;
     padding: 1%;
 }
-#tinymce div.textwithbox .textwithbox-left {
+
+#tinymce div.filerobot .filerobot-left {
     width: 68%;
     background: #fff;
 }
-#tinymce div.textwithbox .textwithbox-right {
+
+#tinymce div.filerobot .filerobot-right {
     width: 28%;
     background: #aaa;
 }

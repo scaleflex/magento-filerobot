@@ -2,7 +2,6 @@
     <policies>
         <policy id="script-src">
             <values>
-                <value id="tailwind" type="host">*.unpkg.com</value>
                 <value id="scaleflex" type="host">*.scaleflex.it</value>
             </values>
         </policy>

@@ -1,0 +1,36 @@
+<?php
+/** @var Scaleflex\FileRobot\Block\System\Config\Button $block */
+echo $block->getButtonHtml();
+?>
+<div style="margin: 10px 0" id="filerobot_test_connection_message">
+    <span style="color: green" class="correct hidden">Your File Robot settings is correct</span>
+    <span style="color: red" class="wrong hidden">Your token and template id are incorrect, please check try again.</span>
+</div>
+<script type="text/javascript">
+    require(["jquery"], function (jQuery) {
+        const token      = '<?php echo $block->getConfig()->getToken(); ?>';
+        const templateId = '<?php echo $block->getConfig()->getTemplateId(); ?>';
+
+        const apiEndpoint = 'https://api.filerobot.com/';
+
+        jQuery('#filerobot_test_connection').on('click', function() {
+            const message = jQuery('#filerobot_test_connection_message');
+
+            // Reset to initialize state
+            message.find('.correct').addClass('hidden');
+            message.find('.wrong').addClass('hidden');
+
+            // Get Endpoint Test URL
+            const apiAuthUrl = apiEndpoint + token + '/key/' + templateId;
+
+            // Check action
+            jQuery.get(apiAuthUrl)
+                    .done(function() {
+                        message.find('.correct').removeClass('hidden')
+                    })
+                    .fail(function() {
+                        message.find('.wrong').removeClass('hidden');
+                    });
+        });
+    });
+</script>

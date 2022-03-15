@@ -1,55 +1,75 @@
 <?php
 
-namespace Demo\TinyMcePlugin\Model\Wysiwyg;
+namespace Scaleflex\FileRobot\Model\Wysiwyg;
 
 use Magento\Framework\DataObject;
+use Scaleflex\FileRobot\Model\FileRobotConfig;
 
-class TextWithBox
+class FileRobot
 {
-    const PLUGIN_NAME = 'textwithbox';
+    const PLUGIN_NAME = 'filerobot';
 
     /**
      * @var \Magento\Framework\View\Asset\Repository
      */
     protected $assetRepo;
 
+    /** @var FileRobotConfig  */
+    protected $fileRobotConfig;
+
     /**
      * TextWithBox constructor.
      * @param \Magento\Framework\View\Asset\Repository $assetRepo
      */
     public function __construct(
-        \Magento\Framework\View\Asset\Repository $assetRepo
+        \Magento\Framework\View\Asset\Repository $assetRepo,
+        FileRobotConfig $fileRobotConfig
     ) {
+        $this->fileRobotConfig = $fileRobotConfig;
         $this->assetRepo = $assetRepo;
     }
 
-    public function getPluginSettings(DataObject $config) : array
+    /**
+     * @param DataObject $config
+     * @return array
+     */
+    public function getPluginSettings(DataObject $config): array
     {
         $plugins = $config->getData('plugins');
-        $plugins[] = [
+
+        if ($this->fileRobotConfig->checkStatus()) {
+
+            $plugins[] = [
                 'name' => self::PLUGIN_NAME,
                 'src' => $this->getPluginJsSrc(),
                 'options' => [
-                    'title' => __('Text with Box'),
-                    'class' => 'add-text-with-box plugin',
+                    'title' => __('File Robot'),
+                    'class' => 'file-robot plugin',
                     'css' => $this->getPluginCssSrc()
                 ],
             ];
+        }
 
         return ['plugins' => $plugins];
     }
 
-    private function getPluginJsSrc() : string
+    /**
+     * @return string
+     */
+    private function getPluginJsSrc(): string
     {
         return $this->assetRepo->getUrl(
-            sprintf('Demo_TinyMcePlugin::js/tiny_mce/plugins/%s/editor_plugin.js', self::PLUGIN_NAME)
+            sprintf('Scaleflex_FileRobot::js/tiny_mce/plugins/%s/editor_plugin.js', self::PLUGIN_NAME)
         );
     }
 
-    private function getPluginCssSrc() : string
+    /**
+     * @return string
+     */
+    private function getPluginCssSrc(): string
     {
         return $this->assetRepo->getUrl(
-            sprintf('Demo_TinyMcePlugin::css/tiny_mce/plugins/%s/content.css', self::PLUGIN_NAME)
+            sprintf('Scaleflex_FileRobot::css/tiny_mce/plugins/%s/content.css', self::PLUGIN_NAME)
         );
     }
 }

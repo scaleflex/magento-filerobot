@@ -3,8 +3,8 @@
     <update handle="editor"/>
     <body>
         <referenceContainer name="footer">
-            <block class="Demo\TinyMcePlugin\Block\Adminhtml\FireRobot"
-                   name="firerobot" template="Demo_TinyMcePlugin::firerobot.phtml" />
+            <block class="Scaleflex\FileRobot\Block\Adminhtml\FireRobot"
+                   name="firerobot" template="Scaleflex_FileRobot::firerobot.phtml" />
         </referenceContainer>
     </body>
 </page>

@@ -1,35 +1,36 @@
 <?php
 
-namespace Demo\TinyMcePlugin\Plugin\Wysiwyg;
+namespace Scaleflex\FileRobot\Plugin\Wysiwyg;
 
 use Magento\Cms\Model\Wysiwyg\Config as Subject;
 use Magento\Framework\DataObject;
-use Demo\TinyMcePlugin\Model\Wysiwyg\TextWithBox;
+use Scaleflex\FileRobot\Model\Wysiwyg\FileRobot;
 
 class ConfigPlugin
 {
     /**
-     * @var TextWithBox
+     * @var FileRobot
      */
-    private $textWithBox;
+    private $fileRobot;
 
     /**
      * ConfigPlugin constructor.
-     * @param TextWithBox $textWithBox
+     * @param FileRobot $textWithBox
      */
     public function __construct(
-        TextWithBox $textWithBox
-    ) {
-        $this->textWithBox = $textWithBox;
+        FileRobot $fileRobot
+    )
+    {
+        $this->fileRobot = $fileRobot;
     }
 
     /**
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function afterGetConfig(Subject $subject, DataObject $config) : DataObject
+    public function afterGetConfig(Subject $subject, DataObject $config): DataObject
     {
-        $textWithBoxPluginSettings = $this->textWithBox->getPluginSettings($config);
-        $config->addData($textWithBoxPluginSettings);
+        $scaleflexFileRobotPlugin = $this->fileRobot->getPluginSettings($config);
+        $config->addData($scaleflexFileRobotPlugin);
         return $config;
     }
 }
