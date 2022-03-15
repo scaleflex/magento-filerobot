@@ -1,0 +1,10 @@
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp/etc/csp_whitelist.xsd">
+    <policies>
+        <policy id="script-src">
+            <values>
+                <value id="tailwind" type="host">*.unpkg.com</value>
+                <value id="scaleflex" type="host">*.scaleflex.it</value>
+            </values>
+        </policy>
+    </policies>
+</csp_whitelist>
