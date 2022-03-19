@@ -1,6 +1,6 @@
 tinyMCE.addI18n({
     en: {
-        file_robot:
+        filerobot:
             {
                 title: "File Robot"
             },
@@ -23,9 +23,9 @@ define([
             ed.addCommand('mceFileRobotModal', t._showFireRobotModal, t);
 
             ed.addButton('filerobot', {
-                title: 'file_robot.title',
+                title: 'filerobot.title',
                 cmd: 'mceFileRobotModal',
-                image: url + '/img/icon.gif'
+                image: url + '/img/icon.svg'
             });
         },
 
