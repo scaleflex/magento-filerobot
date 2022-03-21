@@ -72,10 +72,21 @@ class FileRobotConfig
     }
 
     /**
+     * Get current status
+     * @return mixed
+     */
+    public function getStatus() {
+        return $this->scopeConfig->getValue(self::SCALEFLEX_FILEROBOT_ENABLE, ScopeConfigInterface::SCOPE_TYPE_DEFAULT);
+    }
+
+    /**
      * File Robot enable/disable check function
      * @return boolean
      */
     public function checkStatus() {
-        return $this->scopeConfig->getValue(self::SCALEFLEX_FILEROBOT_ENABLE, ScopeConfigInterface::SCOPE_TYPE_DEFAULT);
+        return $this->getStatus() &&
+               $this->getToken() &&
+               $this->getTemplateId() &&
+               $this->getUploadDir();
     }
 }
