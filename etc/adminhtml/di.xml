@@ -3,4 +3,6 @@
     <type name="Magento\Cms\Model\Wysiwyg\Config">
         <plugin name="scaleflex_filerobot_wysiwyg_config_plugin" type="Scaleflex\FileRobot\Plugin\Wysiwyg\ConfigPlugin"/>
     </type>
+    <preference for="\Magento\Catalog\Block\Adminhtml\Product\Helper\Form\Gallery\Content"
+                type="Scaleflex\FileRobot\Block\Adminhtml\Product\Helper\Form\Gallery\Content" />
 </config>

@@ -5,7 +5,7 @@
  */
 
 // phpcs:disable PHPCompatibility.Miscellaneous.RemovedAlternativePHPTags.MaybeASPOpenTagFound
-/** @var $block \Magento\Catalog\Block\Adminhtml\Product\Helper\Form\Gallery\Content */
+/** @var $block \Scaleflex\FileRobot\Block\Adminhtml\Product\Helper\Form\Gallery\Content */
 /** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
 $elementName = $block->getElement()->getName() . '[images]';
 $formName = $block->getFormName();
@@ -268,13 +268,22 @@ $jsonHelper = $block->getData('jsonHelper');
             .use(Webcam)
             .on('export', function (files, popupExportSuccessMsgFn, downloadFilesPackagedFn, downloadFileFn) {
                 files.forEach((selected, key) => {
-                    console.log(selected.file)
+                    console.log(selected);
+                    const imageData = {
+                        error: 0,
+                        file: selected.file.url.path,
+                        name: selected.file.name,
+                        size: selected.file.size.bytes,
+                        type: selected.file.type,
+                        url: selected.file.url.cdn
+
+                    };
+                    jQuery('#media_gallery_content').trigger('addItem', imageData);
                 })
                 jQuery('#filerobot-modal-content').modal('closeModal')
                 files = []
                 return false
             });
-
 
         jQuery("#filerobot-file-manager").click(function () {
             jQuery('#filerobot-modal-content').modal('openModal');

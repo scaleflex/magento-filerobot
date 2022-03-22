@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+       <preference for="Magento\Catalog\Model\Product\Gallery\CreateHandler"
+                    type="Scaleflex\FileRobot\Model\Product\Gallery\CreateHandlerOverride" />
+       <preference for="Magento\Catalog\Model\Product\Gallery\UpdateHandler"
+                   type="Scaleflex\FileRobot\Model\Product\Gallery\UpdateHandlerOverride" />
+</config>
