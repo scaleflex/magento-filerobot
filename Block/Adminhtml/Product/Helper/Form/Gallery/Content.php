@@ -166,10 +166,32 @@ class Content extends \Magento\Backend\Block\Widget
             is_array($value['images']) &&
             count($value['images'])
         ) {
+            $mediaDir = $this->_filesystem->getDirectoryRead(DirectoryList::MEDIA);
             $images = $this->sortImagesByPosition($value['images']);
             foreach ($images as &$image) {
-                $image['url'] = 'https://fyjnhqim.filerobot.com' . $image['file'];
-                $image['size'] = 123;
+                if (str_contains($image['file'], 'https')) {
+                    $image['url'] = $image['file'];
+                    $url = parse_url($image['url']);
+                    parse_str($url['query'], $query);
+                    $image['size'] = $query['size'];
+                } else {
+                    $image['url'] = $this->_mediaConfig->getMediaUrl($image['file']);
+                    if ($this->fileStorageDatabase->checkDbUsage() &&
+                        !$mediaDir->isFile($this->_mediaConfig->getMediaPath($image['file']))
+                    ) {
+                        $this->fileStorageDatabase->saveFileToFilesystem(
+                            $this->_mediaConfig->getMediaPath($image['file'])
+                        );
+                    }
+                    try {
+                        $fileHandler = $mediaDir->stat($this->_mediaConfig->getMediaPath($image['file']));
+                        $image['size'] = $fileHandler['size'];
+                    } catch (FileSystemException $e) {
+                        $image['url'] = $this->getImageHelper()->getDefaultPlaceholderUrl('small_image');
+                        $image['size'] = 0;
+                        $this->_logger->warning($e);
+                    }
+                }
             }
             return $this->_jsonEncoder->encode($images);
         }

@@ -268,14 +268,14 @@ $jsonHelper = $block->getData('jsonHelper');
             .use(Webcam)
             .on('export', function (files, popupExportSuccessMsgFn, downloadFilesPackagedFn, downloadFileFn) {
                 files.forEach((selected, key) => {
-                    console.log(selected);
+                    const url = selected.link + '&size=' + selected.file.size.bytes;
                     const imageData = {
                         error: 0,
-                        file: selected.file.url.path,
+                        file: url,
                         name: selected.file.name,
                         size: selected.file.size.bytes,
                         type: selected.file.type,
-                        url: selected.file.url.cdn
+                        url: url
 
                     };
                     jQuery('#media_gallery_content').trigger('addItem', imageData);
