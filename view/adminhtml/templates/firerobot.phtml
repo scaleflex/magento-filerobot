@@ -11,7 +11,7 @@
     <div id="filerobot-widget"></div>
 </div>
 <script type="text/javascript">
-    require(["jquery", "Magento_Ui/js/modal/modal"], function (jQuery, modal) {
+    require(["jquery", "Magento_Ui/js/modal/modal"], function (jQuery, modal, _) {
         const container  = '<?php echo $block->getConfig()->getToken(); ?>';
         const templateId = '<?php echo $block->getConfig()->getTemplateId(); ?>';
         const uploadDir  = '<?php echo $block->getConfig()->getUploadDir(); ?>';

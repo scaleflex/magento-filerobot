@@ -3,7 +3,7 @@
 namespace Scaleflex\FileRobot\Ui\Component\Listing\Columns;
 
 use Magento\Catalog\Api\ProductRepositoryInterface;
-use Magento\Framework\View\Element\UiComponentFactory;
+    use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
 
 /**
@@ -53,39 +53,39 @@ class Thumbnail extends \Magento\Ui\Component\Listing\Columns\Column
      */
     public function prepareDataSource(array $dataSource)
     {
-        if (isset($dataSource['data']['items'])) {
-            $fieldName = $this->getData('name');
-            foreach ($dataSource['data']['items'] as &$item) {
-                $product = $this->productRepository->getById($item['entity_id']);
-
-                $images = $product->getMediaAttributeValues();
-
-                if ($images && $images['image']) {
-                    if (str_contains($images['image'], 'filerobot')) {
+        try {
+            if (isset($dataSource['data']['items'])) {
+                $fieldName = $this->getData('name');
+                foreach ($dataSource['data']['items'] as & $item) {
+                    $product = $this->productRepository->getById($item['entity_id']);
+                    $images = $product->getMediaAttributeValues();
+                    if ($images && $images['image'] && str_contains($images['image'], 'filerobot')) {
                         $item[$fieldName . '_src'] = $images['image'];
-                        $item[$fieldName . '_alt'] = $product->getName();
+                        $item[$fieldName . '_alt'] = $this->getAlt($item) ?: $product->getName();
                         $item[$fieldName . '_link'] = $this->urlBuilder->getUrl(
                             'catalog/product/edit',
                             ['id' => $product->getEntityId(), 'store' => $this->context->getRequestParam('store')]
                         );
-                        $origImageHelper = $this->imageHelper->init($product, 'product_listing_thumb_image_preview');
-                        $item[$fieldName . '_orig_src'] = $origImageHelper->getUrl();
+                        $item[$fieldName . '_orig_src'] = $images['image'];
                     } else {
-                        $imageHelper = $this->imageHelper->init($product, 'product_listing_thumb_image');
+                        $imageHelper = $this->imageHelper->init($product, 'product_listing_thumbnail');
                         $item[$fieldName . '_src'] = $imageHelper->getUrl();
                         $item[$fieldName . '_alt'] = $this->getAlt($item) ?: $imageHelper->getLabel();
                         $item[$fieldName . '_link'] = $this->urlBuilder->getUrl(
                             'catalog/product/edit',
                             ['id' => $product->getEntityId(), 'store' => $this->context->getRequestParam('store')]
                         );
-                        $origImageHelper = $this->imageHelper->init($product, 'product_listing_thumb_image_preview');
+                        $origImageHelper = $this->imageHelper->init($product, 'product_listing_thumbnail_preview');
                         $item[$fieldName . '_orig_src'] = $origImageHelper->getUrl();
                     }
                 }
             }
+        } catch (\Exception $e) {
+            //
         }
 
         return $dataSource;
+
     }
 
     /**

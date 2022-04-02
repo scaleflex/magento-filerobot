@@ -6,23 +6,22 @@
 [x] Cross-sell listing
 [x] Mini-cart
 [x] Checkout cart page
-[] Order Summaries Page
+[x] Order Summaries Widget
 Lower Priority
-[] All widget(If we can)
 [] API for Developers
 
 #Admin
 [x] Grid(index)
-[] Grid(related, up-sell, cross-sell)
+[x] Grid(related, up-sell, cross-sell)
 [x] Add/Edit product images
-Lower Priority
-[] Order detail product listing
 
 #Fix bug for TinyMCE
-[]
+[] Bug missing thumbnail js in Product Edit
+[] TinyMCE Feedback
+[] Image Size
 
 #For existing magento source
-[] Make sure it works with existing site
+[x] Make sure it works with existing site
 [] Enable/disable function / warning
 [] Check conflict with CI Plugin
 [] Integrate CI if needed

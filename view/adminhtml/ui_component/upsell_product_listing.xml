@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
-
     <columns name="product_columns" class="Magento\Catalog\Ui\Component\Listing\Columns">
-        <column name="thumbnail"
-                class="Scaleflex\FileRobot\Ui\Component\Listing\Columns\Thumbnail"
-                component="Magento_Ui/js/grid/columns/thumbnail"
-                sortOrder="20">
+        <column name="thumbnail" class="Scaleflex\FileRobot\Ui\Component\Listing\Columns\Thumbnail"
+        component="Magento_Ui/js/grid/columns/thumbnail" sortOrder="20">
             <settings>
                 <altField>name</altField>
                 <hasPreview>1</hasPreview>

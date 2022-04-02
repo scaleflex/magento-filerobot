@@ -4,4 +4,8 @@
                     type="Scaleflex\FileRobot\Model\Product\Gallery\CreateHandlerOverride" />
        <preference for="Magento\Catalog\Model\Product\Gallery\UpdateHandler"
                    type="Scaleflex\FileRobot\Model\Product\Gallery\UpdateHandlerOverride" />
+       <preference for="Magento\Catalog\Ui\Component\Listing\Columns\Thumbnail"
+                   type="Scaleflex\FileRobot\Ui\Component\Listing\Columns\Thumbnail" />
+       <preference for="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Related"
+                    type="Scaleflex\FileRobot\Ui\DataProvider\Product\Form\Modifier\RelatedThumbnail" />
 </config>
