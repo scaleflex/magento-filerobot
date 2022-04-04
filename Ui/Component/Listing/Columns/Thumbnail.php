@@ -5,6 +5,7 @@ namespace Scaleflex\FileRobot\Ui\Component\Listing\Columns;
 use Magento\Catalog\Api\ProductRepositoryInterface;
     use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
+use Scaleflex\FileRobot\Model\FileRobotConfig;
 
 /**
  * Class Thumbnail Image
@@ -20,6 +21,7 @@ class Thumbnail extends \Magento\Ui\Component\Listing\Columns\Column
     private $imageHelper;
     private $urlBuilder;
     private $productRepository;
+    private $fileRobotConfig;
 
     /**
      * @param ContextInterface $context
@@ -35,6 +37,7 @@ class Thumbnail extends \Magento\Ui\Component\Listing\Columns\Column
         \Magento\Catalog\Helper\Image   $imageHelper,
         \Magento\Framework\UrlInterface $urlBuilder,
         ProductRepositoryInterface      $productRepository,
+        FileRobotConfig                 $fileRobotConfig,
         array                           $components = [],
         array                           $data = []
     )
@@ -43,6 +46,7 @@ class Thumbnail extends \Magento\Ui\Component\Listing\Columns\Column
         $this->imageHelper = $imageHelper;
         $this->urlBuilder = $urlBuilder;
         $this->productRepository = $productRepository;
+        $this->fileRobotConfig = $fileRobotConfig;
     }
 
     /**
@@ -59,7 +63,7 @@ class Thumbnail extends \Magento\Ui\Component\Listing\Columns\Column
                 foreach ($dataSource['data']['items'] as & $item) {
                     $product = $this->productRepository->getById($item['entity_id']);
                     $images = $product->getMediaAttributeValues();
-                    if ($images && $images['image'] && str_contains($images['image'], 'filerobot')) {
+                    if ($images && $images['image'] && $this->fileRobotConfig->isFilerobot($images['image'])) {
                         $item[$fieldName . '_src'] = $images['image'];
                         $item[$fieldName . '_alt'] = $this->getAlt($item) ?: $product->getName();
                         $item[$fieldName . '_link'] = $this->urlBuilder->getUrl(

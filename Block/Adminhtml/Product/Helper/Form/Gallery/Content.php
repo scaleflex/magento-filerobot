@@ -11,6 +11,7 @@ use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Exception\FileSystemException;
 use Magento\Backend\Block\DataProviders\ImageUploadConfig as ImageUploadConfigDataProvider;
 use Magento\MediaStorage\Helper\File\Storage\Database;
+use Scaleflex\FileRobot\Model\FileRobotConfig;
 
 /**
  * Block for gallery content.
@@ -22,7 +23,7 @@ class Content extends \Magento\Backend\Block\Widget
     /**
      * @var string
      */
-    protected $_template = 'Scaleflex_FileRobot::catalog/product/helper/gallery.phtml';
+    protected $_template = 'Magento_Catalog::catalog/product/helper/gallery.phtml';
 
     /**
      * @var \Magento\Catalog\Model\Product\Media\Config
@@ -49,6 +50,9 @@ class Content extends \Magento\Backend\Block\Widget
      */
     private $fileStorageDatabase;
 
+
+    protected $fileRobotConfig;
+
     /**
      * @param \Magento\Backend\Block\Template\Context $context
      * @param \Magento\Framework\Json\EncoderInterface $jsonEncoder
@@ -65,8 +69,11 @@ class Content extends \Magento\Backend\Block\Widget
         array $data = [],
         ImageUploadConfigDataProvider $imageUploadConfigDataProvider = null,
         Database $fileStorageDatabase = null,
-        ?JsonHelper $jsonHelper = null
+        ?JsonHelper $jsonHelper = null,
+        FileRobotConfig $fileRobotConfig
+
     ) {
+        $this->fileRobotConfig = $fileRobotConfig;
         $this->_jsonEncoder = $jsonEncoder;
         $this->_mediaConfig = $mediaConfig;
         $data['jsonHelper'] = $jsonHelper ?? ObjectManager::getInstance()->get(JsonHelper::class);
@@ -75,6 +82,15 @@ class Content extends \Magento\Backend\Block\Widget
             ?: ObjectManager::getInstance()->get(ImageUploadConfigDataProvider::class);
         $this->fileStorageDatabase = $fileStorageDatabase
             ?: ObjectManager::getInstance()->get(Database::class);
+    }
+
+
+    /**
+     * @return FileRobotConfig
+     */
+    public function getConfig()
+    {
+        return $this->fileRobotConfig;
     }
 
     /**
@@ -169,7 +185,7 @@ class Content extends \Magento\Backend\Block\Widget
             $mediaDir = $this->_filesystem->getDirectoryRead(DirectoryList::MEDIA);
             $images = $this->sortImagesByPosition($value['images']);
             foreach ($images as &$image) {
-                if (str_contains($image['file'], 'https')) {
+                if ($this->fileRobotConfig->isFilerobot($image['file'])) {
                     $image['url'] = $image['file'];
                     $url = parse_url($image['url']);
                     parse_str($url['query'], $query);

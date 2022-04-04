@@ -6,30 +6,28 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 
 class FileRobotConfig
 {
+
+    const SCALEFLEX_FILEROBOT_CDN = 'filerobot.com';
+
     /**
      * Scaleflex Enable/Disable config
      */
-    const SCALEFLEX_FILEROBOT_ENABLE = 'cms/scaleflex_filerobot/enable';
-
-    /**
-     * Scaleflex CNAME config
-     */
-    const SCALEFLEX_FILEROBOT_CNAME = 'cms/scaleflex_filerobot/cname';
+    const SCALEFLEX_FILEROBOT_ENABLE = 'scaleflex_filerobot/general/enable';
 
     /**
      * Scaleflex File Robot token config
      */
-    const SCALEFLEX_FILEROBOT_TOKEN = 'cms/scaleflex_filerobot/token';
+    const SCALEFLEX_FILEROBOT_TOKEN = 'scaleflex_filerobot/general/token';
 
     /**
      * Scaleflex File Robot template id config
      */
-    const SCALEFLEX_FILEROBOT_TEMPLATEID = 'cms/scaleflex_filerobot/template_id';
+    const SCALEFLEX_FILEROBOT_TEMPLATEID = 'scaleflex_filerobot/general/template_id';
 
     /**
      * Scaleflex File Robot upload directory config
      */
-    const SCALEFLEX_FILEROBOT_UPLOAD_DIRECTORY = 'cms/scaleflex_filerobot/upload_directory';
+    const SCALEFLEX_FILEROBOT_UPLOAD_DIRECTORY = 'scaleflex_filerobot/general/upload_directory';
 
 
     /**
@@ -88,5 +86,14 @@ class FileRobotConfig
                $this->getToken() &&
                $this->getTemplateId() &&
                $this->getUploadDir();
+    }
+
+
+    /**
+     * @param string $url
+     * @return bool
+     */
+    public function isFilerobot(string $url) {
+        return str_contains($url, FileRobotConfig::SCALEFLEX_FILEROBOT_CDN);
     }
 }

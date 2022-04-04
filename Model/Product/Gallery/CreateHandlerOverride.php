@@ -2,7 +2,6 @@
 
 namespace Scaleflex\FileRobot\Model\Product\Gallery;
 
-
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Model\Product;
 use Magento\Framework\App\Filesystem\DirectoryList;
@@ -11,15 +10,8 @@ use Magento\Framework\EntityManager\Operation\ExtensionInterface;
 use Magento\MediaStorage\Model\File\Uploader as FileUploader;
 use Magento\Store\Model\Store;
 use Magento\Store\Model\StoreManagerInterface;
+use Scaleflex\FileRobot\Model\FileRobotConfig;
 
-/**
- * Create handler for catalog product gallery
- *
- * @api
- *
- * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
- * @since 101.0.0
- */
 class CreateHandlerOverride implements ExtensionInterface
 {
     /**
@@ -96,6 +88,12 @@ class CreateHandlerOverride implements ExtensionInterface
         'thumbnail'
     ];
 
+
+    /**
+     * @var FileRobotConfig
+     */
+    protected $fileRobotConfig;
+
     /**
      * @param \Magento\Framework\EntityManager\MetadataPool $metadataPool
      * @param \Magento\Catalog\Api\ProductAttributeRepositoryInterface $attributeRepository
@@ -115,7 +113,8 @@ class CreateHandlerOverride implements ExtensionInterface
         \Magento\Catalog\Model\Product\Media\Config $mediaConfig,
         \Magento\Framework\Filesystem $filesystem,
         \Magento\MediaStorage\Helper\File\Storage\Database $fileStorageDb,
-        \Magento\Store\Model\StoreManagerInterface $storeManager = null
+        \Magento\Store\Model\StoreManagerInterface $storeManager = null,
+        FileRobotConfig $fileRobotConfig
     ) {
         $this->metadata = $metadataPool->getMetadata(\Magento\Catalog\Api\Data\ProductInterface::class);
         $this->attributeRepository = $attributeRepository;
@@ -125,6 +124,7 @@ class CreateHandlerOverride implements ExtensionInterface
         $this->mediaDirectory = $filesystem->getDirectoryWrite(DirectoryList::MEDIA);
         $this->fileStorageDb = $fileStorageDb;
         $this->storeManager = $storeManager ?: ObjectManager::getInstance()->get(StoreManagerInterface::class);
+        $this->fileRobotConfig = $fileRobotConfig;
     }
 
     /**
@@ -170,8 +170,14 @@ class CreateHandlerOverride implements ExtensionInterface
                 if (!empty($image['removed'])) {
                     $clearImages[] = $image['file'];
                 } elseif (empty($image['value_id']) || !empty($image['recreate'])) {
-//                    $newFile = $this->moveImageFromTmp($image['file']);
-                    $newFile = $image['file'];
+
+                    // Scaleflex handler
+                    if ($this->fileRobotConfig->isFilerobot($image['file'])) {
+                        $newFile = $image['file'];
+                    } else {
+                        $newFile = $this->moveImageFromTmp($image['file']);
+                    }
+
                     $image['new_file'] = $newFile;
                     $newImages[$image['file']] = $image;
                     $image['file'] = $newFile;

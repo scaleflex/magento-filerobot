@@ -1,36 +1,36 @@
 <?xml version="1.0" ?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
 	<system>
-		<section id="cms" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
-			<tab>general</tab>
-			<resource>Scaleflex_FileRobot::config_scaleflex_filerobot</resource>
-			<group id="scaleflex_filerobot" sortOrder="10" showInWebsite="0" showInStore="0" showInDefault="1" translate="label">
-				<label>Scaleflex File Robot</label>
-				<field id="enable" type="select" sortOrder="10" showInWebsite="0" showInStore="0" showInDefault="1" translate="label">
-                	<label>Enable</label>
-                    <comment>Enable or Disable the extension</comment>
-                    <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
-                </field>
-				<field id="cname" type="text" sortOrder="10" showInWebsite="0" showInStore="0" showInDefault="1" translate="label">
-					<label>CNAME</label>
-					<comment>Enter CNAME: for example media.mydomain.com</comment>
-				</field>
-				<field id="token" type="text" sortOrder="10" showInWebsite="0" showInStore="0" showInDefault="1" translate="label">
-					<label>Filerobot token</label>
-					<comment>Enter token: for example fmpsaXXX</comment>
-				</field>
-				<field id="template_id" type="text" sortOrder="10" showInWebsite="0" showInStore="0" showInDefault="1" translate="label">
-					<label>Security Template Identifer</label>
-					<comment>Enter token: for example SECU_3268740A1382466B9XBC390D8</comment>
-				</field>
-				<field id="upload_directory" type="text" sortOrder="10" showInWebsite="0" showInStore="0" showInDefault="1" translate="label">
-					<label>Filerobot upload directory</label>
-					<comment>By default: /</comment>
-				</field>
-                <field id="filerobot_action" translate="label" type="button" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
-                    <frontend_model>Scaleflex\FileRobot\Block\System\Config\Button</frontend_model>
-                </field>
-			</group>
-		</section>
+	  <tab id="scaleflex" translate="label" sortOrder="999">
+        	<label>Filerobot by Scaleflex</label>
+      </tab>
+      <section id="scaleflex_filerobot" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+            <label>Filerobot Integration</label>
+            <tab>scaleflex</tab>
+            <resource>Scaleflex_FileRobot::config_scaleflex_filerobot</resource>
+            <group id="general" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+               	<label>General</label>
+                <field id="enable" type="select" sortOrder="10" showInWebsite="0" showInStore="0" showInDefault="1" translate="label">
+                     <label>Enable</label>
+                     <comment>Enable or Disable the extension</comment>
+                     <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                 </field>
+                 <field id="token" type="text" sortOrder="10" showInWebsite="0" showInStore="0" showInDefault="1" translate="label">
+                     <label>Filerobot token</label>
+                     <comment>Enter token: for example fmpsaXXX</comment>
+                 </field>
+                 <field id="template_id" type="text" sortOrder="10" showInWebsite="0" showInStore="0" showInDefault="1" translate="label">
+                     <label>Security Template Identifer</label>
+                     <comment>Enter token: for example SECU_3268740A1382466B9XBC390D8</comment>
+                 </field>
+                 <field id="upload_directory" type="text" sortOrder="10" showInWebsite="0" showInStore="0" showInDefault="1" translate="label">
+                     <label>Filerobot upload directory</label>
+                     <comment>By default: /</comment>
+                 </field>
+                 <field id="filerobot_action" translate="label" type="button" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                     <frontend_model>Scaleflex\FileRobot\Block\System\Config\Button</frontend_model>
+                 </field>
+             </group>
+       </section>
 	</system>
 </config>

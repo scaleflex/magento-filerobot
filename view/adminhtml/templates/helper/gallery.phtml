@@ -12,6 +12,7 @@ $formName = $block->getFormName();
 /** @var \Magento\Framework\Json\Helper\Data $jsonHelper */
 $jsonHelper = $block->getData('jsonHelper');
 ?>
+
 <div id="<?= $block->getHtmlId() ?>"
      class="gallery"
      data-mage-init='{"productGallery":{"template":"#<?= $block->getHtmlId() ?>-template"}}'
@@ -215,13 +216,9 @@ $jsonHelper = $block->getData('jsonHelper');
 <?= /* @noEscape */ $secureRenderer->renderTag('script', [], "jQuery('body').trigger('contentUpdated');", false) ?>
 <script type="text/javascript">
     require(["jquery", "Magento_Ui/js/modal/modal"], function (jQuery, modal) {
-        //const container  = '<?php //echo $block->getConfig()->getToken(); ?>//';
-        //const templateId = '<?php //echo $block->getConfig()->getTemplateId(); ?>//';
-        //const uploadDir  = '<?php //echo $block->getConfig()->getUploadDir(); ?>//';
-
-        const container  = 'fyjnhqim';
-        const templateId = 'SECU_C19B5A2656F645FAA4FFA40D40C6F599';
-        const uploadDir  = '/';
+        const container  = '<?php echo $block->getConfig()->getToken(); ?>';
+        const templateId = '<?php echo $block->getConfig()->getTemplateId(); ?>';
+        const uploadDir  = '<?php echo $block->getConfig()->getUploadDir(); ?>';
 
         var options = {
             type: 'popup',
@@ -245,45 +242,58 @@ $jsonHelper = $block->getData('jsonHelper');
         const ImageEditor = Filerobot.ImageEditor;
         const Webcam = Filerobot.Webcam;
 
-        filerobot
-            .use(Explorer, {
-                config: {
-                    rootFolderPath: uploadDir ?? '/'
-                },
-                target: '#filerobot-fmaw',
-                inline: true,
-                width: '100%',
-                height: 530,
-                showDetailsView: true,
-                locale: {
-                    strings: {
-                        export: 'Insert'
-                    }
-                },
-            })
-            .use(XHRUpload)
-            .use(ImageEditor, {
-                cloudimageToken: templateId
-            })
-            .use(Webcam)
-            .on('export', function (files, popupExportSuccessMsgFn, downloadFilesPackagedFn, downloadFileFn) {
-                files.forEach((selected, key) => {
-                    const url = selected.link + '&size=' + selected.file.size.bytes;
-                    const imageData = {
-                        error: 0,
-                        file: url,
-                        name: selected.file.name,
-                        size: selected.file.size.bytes,
-                        type: selected.file.type,
-                        url: url
-
-                    };
-                    jQuery('#media_gallery_content').trigger('addItem', imageData);
+        if (container && templateId) {
+            filerobot
+                .use(Explorer, {
+                    config: {
+                        rootFolderPath: uploadDir ?? '/'
+                    },
+                    target: '#filerobot-fmaw',
+                    inline: true,
+                    width: '100%',
+                    height: 530,
+                    showDetailsView: true,
+                    locale: {
+                        strings: {
+                            export: 'Insert'
+                        }
+                    },
                 })
-                jQuery('#filerobot-modal-content').modal('closeModal')
-                files = []
-                return false
-            });
+                .use(XHRUpload)
+                .use(ImageEditor, {
+                    cloudimageToken: templateId
+                })
+                .use(Webcam)
+                .on('export', function (files, popupExportSuccessMsgFn, downloadFilesPackagedFn, downloadFileFn) {
+                    files.forEach((selected, key) => {
+
+                        let link = selected.link;
+
+                        if (!link.includes('width=')) {
+                            link += ('&width=' + selected.file.info.img_w);
+                        }
+
+                        if (!link.includes('height=')) {
+                            link += ('&height=' + selected.file.info.img_h);
+                        }
+
+                        const url = link + '&size=' + selected.file.size.bytes;
+                        const imageData = {
+                            error: 0,
+                            file: url,
+                            name: selected.file.name,
+                            size: selected.file.size.bytes,
+                            type: selected.file.type,
+                            url: url
+
+                        };
+                        jQuery('#media_gallery_content').trigger('addItem', imageData);
+                    })
+                    jQuery('#filerobot-modal-content').modal('closeModal')
+                    files = []
+                    return false
+                });
+        }
 
         jQuery("#filerobot-file-manager").click(function () {
             jQuery('#filerobot-modal-content').modal('openModal');

@@ -21,6 +21,7 @@ use Magento\Ui\Component\Form\Fieldset;
 use Magento\Ui\Component\Modal;
 use Magento\Catalog\Helper\Image as ImageHelper;
 use Magento\Catalog\Model\Product\Attribute\Source\Status;
+use Scaleflex\FileRobot\Model\FileRobotConfig;
 
 /**
  * Class for Product Modifier Related
@@ -108,6 +109,11 @@ class RelatedThumbnail extends AbstractModifier
     private $priceModifier;
 
     /**
+     * @var FileRobotConfig
+     */
+    private $fileRobotConfig;
+
+    /**
      * @param LocatorInterface $locator
      * @param UrlInterface $urlBuilder
      * @param ProductLinkRepositoryInterface $productLinkRepository
@@ -115,8 +121,9 @@ class RelatedThumbnail extends AbstractModifier
      * @param ImageHelper $imageHelper
      * @param Status $status
      * @param AttributeSetRepositoryInterface $attributeSetRepository
-     * @param string $scopeName
-     * @param string $scopePrefix
+     * @param FileRobotConfig $fileRobotConfig
+     * @param $scopeName
+     * @param $scopePrefix
      */
     public function __construct(
         LocatorInterface $locator,
@@ -126,6 +133,7 @@ class RelatedThumbnail extends AbstractModifier
         ImageHelper $imageHelper,
         Status $status,
         AttributeSetRepositoryInterface $attributeSetRepository,
+        FileRobotConfig $fileRobotConfig,
         $scopeName = '',
         $scopePrefix = ''
     ) {
@@ -138,6 +146,7 @@ class RelatedThumbnail extends AbstractModifier
         $this->attributeSetRepository = $attributeSetRepository;
         $this->scopeName = $scopeName;
         $this->scopePrefix = $scopePrefix;
+        $this->fileRobotConfig = $fileRobotConfig;
     }
 
     /**
@@ -260,7 +269,7 @@ class RelatedThumbnail extends AbstractModifier
     {
         return [
             'id' => $linkedProduct->getId(),
-            'thumbnail' => str_contains($linkedProduct->getMediaAttributeValues()['thumbnail'], 'filerobot') ? $linkedProduct->getMediaAttributeValues()['thumbnail'] : $this->imageHelper->init($linkedProduct, 'product_listing_thumbnail')->getUrl(), // TODO Change This function
+            'thumbnail' => $this->fileRobotConfig->isFilerobot($linkedProduct->getMediaAttributeValues()['thumbnail']) ? $linkedProduct->getMediaAttributeValues()['thumbnail'] : $this->imageHelper->init($linkedProduct, 'product_listing_thumbnail')->getUrl(), // TODO Change This function
             'name' => $linkedProduct->getName(),
             'status' => $this->status->getOptionText($linkedProduct->getStatus()),
             'attribute_set' => $this->attributeSetRepository

@@ -5,4 +5,7 @@
     </type>
     <preference for="\Magento\Catalog\Block\Adminhtml\Product\Helper\Form\Gallery\Content"
                 type="Scaleflex\FileRobot\Block\Adminhtml\Product\Helper\Form\Gallery\Content" />
+    <type name="Magento\Ui\Component\Wysiwyg\ConfigInterface">
+    	<plugin disabled="false" name="Scaleflex_TinyMCE_Disable_Image" sortOrder="10" type="Scaleflex\FileRobot\Plugin\Ui\Component\Wysiwyg\ConfigPlugin"/>
+    </type>
 </config>

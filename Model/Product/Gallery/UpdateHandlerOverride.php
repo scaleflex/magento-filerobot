@@ -2,10 +2,10 @@
 
 namespace Scaleflex\FileRobot\Model\Product\Gallery;
 
-
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Api\ProductAttributeRepositoryInterface;
 use Magento\Catalog\Model\Product;
+use Scaleflex\FileRobot\Model\FileRobotConfig;
 use Scaleflex\FileRobot\Model\Product\Gallery\CreateHandlerOverride;
 use Magento\Catalog\Model\Product\Media\Config;
 use Magento\Catalog\Model\ResourceModel\Product\Gallery;
@@ -18,13 +18,7 @@ use Magento\MediaStorage\Helper\File\Storage\Database;
 use Magento\Store\Model\Store;
 use Magento\Store\Model\StoreManagerInterface;
 
-/**
- * Update handler for catalog product gallery.
- *
- * @api
- * @since 101.0.0
- * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
- */
+
 class UpdateHandlerOverride extends CreateHandlerOverride
 {
     /**
@@ -52,7 +46,8 @@ class UpdateHandlerOverride extends CreateHandlerOverride
         Filesystem $filesystem,
         Database $fileStorageDb,
         StoreManagerInterface $storeManager = null,
-        ?AttributeValue $attributeValue = null
+        ?AttributeValue $attributeValue = null,
+        FileRobotConfig $fileRobotConfig
     ) {
         parent::__construct(
             $metadataPool,
@@ -62,7 +57,8 @@ class UpdateHandlerOverride extends CreateHandlerOverride
             $mediaConfig,
             $filesystem,
             $fileStorageDb,
-            $storeManager
+            $storeManager,
+            $fileRobotConfig
         );
         $this->attributeValue = $attributeValue ?: ObjectManager::getInstance()->get(AttributeValue::class);
     }
