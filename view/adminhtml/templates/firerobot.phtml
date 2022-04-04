@@ -16,6 +16,9 @@
         const templateId = '<?php echo $block->getConfig()->getTemplateId(); ?>';
         const uploadDir  = '<?php echo $block->getConfig()->getUploadDir(); ?>';
 
+
+
+
         var options = {
             type: 'popup',
             responsive: true,
@@ -62,8 +65,21 @@
                 .use(Webcam)
                 .on('export', function (files, popupExportSuccessMsgFn, downloadFilesPackagedFn, downloadFileFn) {
                     files.forEach((selected, key) => {
+                        let link = selected.link;
+
+                        if (!link.includes('width=')) {
+                            link += ('&width=' + selected.file.info.img_w);
+                        }
+
+                        if (!link.includes('height=')) {
+                            link += ('&height=' + selected.file.info.img_h);
+                        }
+
                         window.fileRobotActiveEditor.execCommand('mceInsertContent', false, '<div>' +
-                            '<img src="' + selected.file.link + '" alt="' + selected.file.url.name + '" /> ' +
+                            '<img src="' + link + '" ' +
+                            ' width="'+selected.file.info.img_w+'"' +
+                            ' height="'+selected.file.info.img_h+'"' +
+                            ' alt="' + selected.file.name + '" /> ' +
                             '</div>');
                     })
                     window.fileRobotActiveEditor = undefined

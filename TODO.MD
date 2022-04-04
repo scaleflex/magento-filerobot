@@ -16,7 +16,7 @@ Lower Priority
 [x] Add/Edit product images
 
 #Fix bug for TinyMCE
-[] Bug missing thumbnail js in Product Edit
+[x] Bug missing thumbnail js in Product Edit
 [] TinyMCE Feedback
 [] Image Size
 

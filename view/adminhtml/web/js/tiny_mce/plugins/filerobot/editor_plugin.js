@@ -27,6 +27,37 @@ define([
                 cmd: 'mceFileRobotModal',
                 image: url + '/img/icon.svg'
             });
+
+            ed.on('ObjectResizeStart', function(e) {
+                window.activeObject = e;
+            });
+
+            ed.on('ObjectResized', function(e) {
+                const object = jQuery(e.target);
+
+                if (object.prop('nodeName') === 'IMG') {
+                    // Get OLD Value
+                    const oldObject = window.activeObject;
+                    const oldWidth  = oldObject.width;
+                    const oldHeight = oldObject.height;
+
+                    const newWidth = e.width;
+                    const newHeight = e.height;
+                    const src = object.attr('src');
+
+                    // Update src URL
+                    let newSrc = src.replace(oldWidth, newWidth);
+                    newSrc = newSrc.replace(oldHeight, newHeight);
+
+                    // Update image url after resized
+                    let content = ed.getContent();
+                    content = content.replaceAll('&amp;', '&');
+                    content = content.replace(src, newSrc);
+                    ed.setContent(content);
+                    window.activeObject = undefined;
+                }
+            });
+
         },
 
         getInfo: function () {
