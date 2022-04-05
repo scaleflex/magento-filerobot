@@ -2,24 +2,24 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
       <type name="Magento\Catalog\Block\Product\View\Gallery">
             <plugin name="add_imgage_to_gallery"
-                    type="Scaleflex\FileRobot\Plugin\AddImageToGallery" />
+                    type="Scaleflex\Filerobot\Plugin\AddImageToGallery" />
       </type>
       <type name="Magento\Catalog\Block\Product\AbstractProduct">
             <plugin name="after_get_image_plugin"
-                    type="Scaleflex\FileRobot\Plugin\AfterGetImage" />
+                    type="Scaleflex\Filerobot\Plugin\AfterGetImage" />
       </type>
       <type name="Magento\Catalog\Block\Product\Image">
             <plugin name="after_get_image_url_plugin"
-                    type="Scaleflex\FileRobot\Plugin\AfterGetImageUrl" />
+                    type="Scaleflex\Filerobot\Plugin\AfterGetImageUrl" />
       </type>
       <type name="Magento\Checkout\CustomerData\AbstractItem">
             <plugin name="minicart_after_get_itemdata_plugin"
-                    type="Scaleflex\FileRobot\Plugin\Minicart\AfterGetItemData" />
+                    type="Scaleflex\Filerobot\Plugin\Minicart\AfterGetItemData" />
       </type>
       <type name="Magento\Checkout\Block\Cart\Item\Renderer">
-          <plugin name="product_image_checkout_cart" type="Scaleflex\FileRobot\Plugin\Checkout\Image" sortOrder="1"/>
+          <plugin name="product_image_checkout_cart" type="Scaleflex\Filerobot\Plugin\Checkout\Image" sortOrder="1"/>
       </type>
       <type name="Magento\Catalog\Block\Product\ImageBuilder">
-                <plugin name="after_imagebuilder_create" type="Scaleflex\FileRobot\Plugin\Product\AfterBuildImage" sortOrder="1"/>
+                <plugin name="after_imagebuilder_create" type="Scaleflex\Filerobot\Plugin\Product\AfterBuildImage" sortOrder="1"/>
             </type>
 </config>

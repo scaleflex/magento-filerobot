@@ -1,12 +1,12 @@
 <?php
 
-namespace Scaleflex\FileRobot\Model\Product\Gallery;
+namespace Scaleflex\Filerobot\Model\Product\Gallery;
 
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Api\ProductAttributeRepositoryInterface;
 use Magento\Catalog\Model\Product;
-use Scaleflex\FileRobot\Model\FileRobotConfig;
-use Scaleflex\FileRobot\Model\Product\Gallery\CreateHandlerOverride;
+use Scaleflex\Filerobot\Model\FilerobotConfig;
+use Scaleflex\Filerobot\Model\Product\Gallery\CreateHandlerOverride;
 use Magento\Catalog\Model\Product\Media\Config;
 use Magento\Catalog\Model\ResourceModel\Product\Gallery;
 use Magento\Eav\Model\ResourceModel\AttributeValue;
@@ -17,7 +17,6 @@ use Magento\Framework\Json\Helper\Data;
 use Magento\MediaStorage\Helper\File\Storage\Database;
 use Magento\Store\Model\Store;
 use Magento\Store\Model\StoreManagerInterface;
-
 
 class UpdateHandlerOverride extends CreateHandlerOverride
 {
@@ -38,16 +37,16 @@ class UpdateHandlerOverride extends CreateHandlerOverride
      * @param AttributeValue|null $attributeValue
      */
     public function __construct(
-        MetadataPool $metadataPool,
+        MetadataPool                        $metadataPool,
         ProductAttributeRepositoryInterface $attributeRepository,
-        Gallery $resourceModel,
-        Data $jsonHelper,
-        Config $mediaConfig,
-        Filesystem $filesystem,
-        Database $fileStorageDb,
-        StoreManagerInterface $storeManager = null,
-        ?AttributeValue $attributeValue = null,
-        FileRobotConfig $fileRobotConfig
+        Gallery                             $resourceModel,
+        Data                                $jsonHelper,
+        Config                              $mediaConfig,
+        Filesystem                          $filesystem,
+        Database                            $fileStorageDb,
+        StoreManagerInterface               $storeManager = null,
+        ?AttributeValue                     $attributeValue = null,
+        FilerobotConfig $fileRobotConfig
     ) {
         parent::__construct(
             $metadataPool,

@@ -1,5 +1,5 @@
 <?php
-/** @var \Scaleflex\FileRobot\Block\Adminhtml\FireRobot $block */
+/** @var \Scaleflex\Filerobot\Block\Adminhtml\Firerobot $block */
 ?>
 <link rel="stylesheet" type="text/css"
       href="https://cdn.scaleflex.it/plugins/filerobot-widget/1.0.105/filerobot-widget.min.css?func=proxy"/>
@@ -12,9 +12,9 @@
 </div>
 <script type="text/javascript">
     require(["jquery", "Magento_Ui/js/modal/modal"], function (jQuery, modal, _) {
-        const container  = '<?php echo $block->getConfig()->getToken(); ?>';
+        const container = '<?php echo $block->getConfig()->getToken(); ?>';
         const templateId = '<?php echo $block->getConfig()->getTemplateId(); ?>';
-        const uploadDir  = '<?php echo $block->getConfig()->getUploadDir(); ?>';
+        const uploadDir = '<?php echo $block->getConfig()->getUploadDir(); ?>';
 
         var options = {
             type: 'popup',
@@ -65,7 +65,7 @@
                         let link = selected.link;
 
                         let url = new URL(link);
-                        let width  = selected.file.info.img_w;
+                        let width = selected.file.info.img_w;
                         let height = selected.file.info.img_h;
 
                         if (!link.includes('width=')) {
@@ -82,8 +82,8 @@
 
                         window.fileRobotActiveEditor.execCommand('mceInsertContent', false, '<div>' +
                             '<img src="' + link + '" ' +
-                            ' width="'+width+'"' +
-                            ' height="'+height+'"' +
+                            ' width="' + width + '"' +
+                            ' height="' + height + '"' +
                             ' alt="' + selected.file.meta.title + '" /> ' +
                             '</div>');
                     })

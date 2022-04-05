@@ -1,8 +1,8 @@
 Copyright © 2022-present Scaleflex
 
-This file is part of Scaleflex/FileRobot.
+This file is part of Scaleflex/Filerobot.
 
-Scaleflex/FileRobot is free software: you can redistribute it and/or modify
+Scaleflex/Filerobot is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.

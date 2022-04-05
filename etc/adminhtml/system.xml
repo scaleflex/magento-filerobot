@@ -7,7 +7,7 @@
       <section id="scaleflex_filerobot" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
             <label>Filerobot Integration</label>
             <tab>scaleflex</tab>
-            <resource>Scaleflex_FileRobot::config_scaleflex_filerobot</resource>
+            <resource>Scaleflex_Filerobot::config_scaleflex_filerobot</resource>
             <group id="general" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
                	<label>General</label>
                 <field id="enable" type="select" sortOrder="10" showInWebsite="0" showInStore="0" showInDefault="1" translate="label">
@@ -28,7 +28,7 @@
                      <comment>By default: /</comment>
                  </field>
                  <field id="filerobot_action" translate="label" type="button" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
-                     <frontend_model>Scaleflex\FileRobot\Block\System\Config\Button</frontend_model>
+                     <frontend_model>Scaleflex\Filerobot\Block\System\Config\Button</frontend_model>
                  </field>
              </group>
        </section>

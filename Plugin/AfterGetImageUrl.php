@@ -1,23 +1,23 @@
 <?php
 
-namespace Scaleflex\FileRobot\Plugin;
+namespace Scaleflex\Filerobot\Plugin;
 
 use Magento\Catalog\Block\Product\Image;
-use Scaleflex\FileRobot\Model\FileRobotConfig;
+use Scaleflex\Filerobot\Model\FilerobotConfig;
 
 class AfterGetImageUrl
 {
 
     /**
-     * @var FileRobotConfig
+     * @var FilerobotConfig
      */
-    protected FileRobotConfig $fileRobotConfig;
+    protected FilerobotConfig $fileRobotConfig;
 
     /**
-     * @param FileRobotConfig $fileRobotConfig
+     * @param FilerobotConfig $fileRobotConfig
      */
     public function __construct(
-        FileRobotConfig $fileRobotConfig
+        FilerobotConfig $fileRobotConfig
     ) {
         $this->fileRobotConfig = $fileRobotConfig;
     }

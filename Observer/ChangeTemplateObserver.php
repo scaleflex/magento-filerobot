@@ -1,25 +1,25 @@
 <?php
 
-namespace Scaleflex\FileRobot\Observer;
+namespace Scaleflex\Filerobot\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
-use Scaleflex\FileRobot\Model\FileRobotConfig;
+use Scaleflex\Filerobot\Model\FilerobotConfig;
 
 class ChangeTemplateObserver implements ObserverInterface
 {
     protected $fileRobotConfig;
 
     public function __construct(
-      FileRobotConfig $fileRobotConfig
+        FilerobotConfig $fileRobotConfig
     ) {
         $this->fileRobotConfig = $fileRobotConfig;
     }
 
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
-        if($this->fileRobotConfig->checkStatus()) {
+        if ($this->fileRobotConfig->checkStatus()) {
             $observer->getBlock()
-                ->setTemplate('Scaleflex_FileRobot::helper/gallery.phtml');
+                ->setTemplate('Scaleflex_Filerobot::helper/gallery.phtml');
         }
     }
 }

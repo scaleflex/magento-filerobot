@@ -1,4 +1,4 @@
-# Mage2 Module Scaleflex FileRobot
+# Mage2 Module Scaleflex Filerobot
 
     ``scaleflex/module-filerobot``
 

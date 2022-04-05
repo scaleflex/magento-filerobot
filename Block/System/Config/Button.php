@@ -1,31 +1,31 @@
 <?php
 
-namespace Scaleflex\FileRobot\Block\System\Config;
+namespace Scaleflex\Filerobot\Block\System\Config;
 
 use Magento\Config\Block\System\Config\Form\Field;
 use Magento\Backend\Block\Template\Context;
 use Magento\Framework\Data\Form\Element\AbstractElement;
-use Scaleflex\FileRobot\Model\FileRobotConfig;
+use Scaleflex\Filerobot\Model\FilerobotConfig;
 
 class Button extends Field
 {
-    /** @var string  */
-    protected $_template = 'Scaleflex_FileRobot::system/config/button.phtml';
+    /** @var string */
+    protected $_template = 'Scaleflex_Filerobot::system/config/button.phtml';
 
     /**
-     * @var FileRobotConfig
+     * @var FilerobotConfig
      */
     private $fileRobotConfig;
 
     /**
      * @param Context $context
      * @param array $data
-     * @param FileRobotConfig $fileRobotConfig
+     * @param FilerobotConfig $fileRobotConfig
      */
     public function __construct(
-        Context $context,
-        array $data = [],
-        FileRobotConfig $fileRobotConfig
+        Context         $context,
+        array           $data = [],
+        FilerobotConfig $fileRobotConfig
     ) {
         parent::__construct($context, $data);
         $this->fileRobotConfig = $fileRobotConfig;
@@ -56,9 +56,7 @@ class Button extends Field
      */
     public function getButtonHtml()
     {
-        if ($this->fileRobotConfig->getToken() &&
-            $this->fileRobotConfig->getTemplateId() &&
-            $this->fileRobotConfig->getUploadDir()) {
+        if ($this->fileRobotConfig->checkStatus()) {
             $button = $this->getLayout()->createBlock('Magento\Backend\Block\Widget\Button')->setData(['id' => 'filerobot_test_connection', 'label' => __('Test Connection'),]);
         } else {
             $button = $this->getLayout()->createBlock('Magento\Backend\Block\Widget\Button')->setData(['id' => 'filerobot_test_connection', 'label' => __('Test Connection'), 'disabled' => 'disabled']);
@@ -68,9 +66,10 @@ class Button extends Field
     }
 
     /**
-     * @return FileRobotConfig
+     * @return FilerobotConfig
      */
-    public function getConfig() {
+    public function getConfig()
+    {
         return $this->fileRobotConfig;
     }
 }

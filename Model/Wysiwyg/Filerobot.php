@@ -1,11 +1,11 @@
 <?php
 
-namespace Scaleflex\FileRobot\Model\Wysiwyg;
+namespace Scaleflex\Filerobot\Model\Wysiwyg;
 
 use Magento\Framework\DataObject;
-use Scaleflex\FileRobot\Model\FileRobotConfig;
+use Scaleflex\Filerobot\Model\FilerobotConfig;
 
-class FileRobot
+class Filerobot
 {
     const PLUGIN_NAME = 'filerobot';
 
@@ -14,7 +14,7 @@ class FileRobot
      */
     protected $assetRepo;
 
-    /** @var FileRobotConfig  */
+    /** @var FilerobotConfig */
     protected $fileRobotConfig;
 
     /**
@@ -23,7 +23,7 @@ class FileRobot
      */
     public function __construct(
         \Magento\Framework\View\Asset\Repository $assetRepo,
-        FileRobotConfig $fileRobotConfig
+        FilerobotConfig $fileRobotConfig
     ) {
         $this->fileRobotConfig = $fileRobotConfig;
         $this->assetRepo = $assetRepo;
@@ -59,7 +59,7 @@ class FileRobot
     private function getPluginJsSrc(): string
     {
         return $this->assetRepo->getUrl(
-            sprintf('Scaleflex_FileRobot::js/tiny_mce/plugins/%s/editor_plugin.js', self::PLUGIN_NAME)
+            sprintf('Scaleflex_Filerobot::js/tiny_mce/plugins/%s/editor_plugin.js', self::PLUGIN_NAME)
         );
     }
 
@@ -69,7 +69,7 @@ class FileRobot
     private function getPluginCssSrc(): string
     {
         return $this->assetRepo->getUrl(
-            sprintf('Scaleflex_FileRobot::css/tiny_mce/plugins/%s/content.css', self::PLUGIN_NAME)
+            sprintf('Scaleflex_Filerobot::css/tiny_mce/plugins/%s/content.css', self::PLUGIN_NAME)
         );
     }
 }

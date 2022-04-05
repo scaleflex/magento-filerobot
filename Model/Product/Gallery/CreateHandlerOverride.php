@@ -1,6 +1,6 @@
 <?php
 
-namespace Scaleflex\FileRobot\Model\Product\Gallery;
+namespace Scaleflex\Filerobot\Model\Product\Gallery;
 
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Model\Product;
@@ -10,7 +10,7 @@ use Magento\Framework\EntityManager\Operation\ExtensionInterface;
 use Magento\MediaStorage\Model\File\Uploader as FileUploader;
 use Magento\Store\Model\Store;
 use Magento\Store\Model\StoreManagerInterface;
-use Scaleflex\FileRobot\Model\FileRobotConfig;
+use Scaleflex\Filerobot\Model\FilerobotConfig;
 
 class CreateHandlerOverride implements ExtensionInterface
 {
@@ -90,7 +90,7 @@ class CreateHandlerOverride implements ExtensionInterface
 
 
     /**
-     * @var FileRobotConfig
+     * @var FilerobotConfig
      */
     protected $fileRobotConfig;
 
@@ -106,15 +106,15 @@ class CreateHandlerOverride implements ExtensionInterface
      * @throws \Magento\Framework\Exception\FileSystemException
      */
     public function __construct(
-        \Magento\Framework\EntityManager\MetadataPool $metadataPool,
+        \Magento\Framework\EntityManager\MetadataPool            $metadataPool,
         \Magento\Catalog\Api\ProductAttributeRepositoryInterface $attributeRepository,
-        \Magento\Catalog\Model\ResourceModel\Product\Gallery $resourceModel,
-        \Magento\Framework\Json\Helper\Data $jsonHelper,
-        \Magento\Catalog\Model\Product\Media\Config $mediaConfig,
-        \Magento\Framework\Filesystem $filesystem,
-        \Magento\MediaStorage\Helper\File\Storage\Database $fileStorageDb,
-        \Magento\Store\Model\StoreManagerInterface $storeManager = null,
-        FileRobotConfig $fileRobotConfig
+        \Magento\Catalog\Model\ResourceModel\Product\Gallery     $resourceModel,
+        \Magento\Framework\Json\Helper\Data                      $jsonHelper,
+        \Magento\Catalog\Model\Product\Media\Config              $mediaConfig,
+        \Magento\Framework\Filesystem                            $filesystem,
+        \Magento\MediaStorage\Helper\File\Storage\Database       $fileStorageDb,
+        \Magento\Store\Model\StoreManagerInterface               $storeManager = null,
+        FilerobotConfig $fileRobotConfig
     ) {
         $this->metadata = $metadataPool->getMetadata(\Magento\Catalog\Api\Data\ProductInterface::class);
         $this->attributeRepository = $attributeRepository;
@@ -515,11 +515,12 @@ class CreateHandlerOverride implements ExtensionInterface
      */
     private function processMediaAttribute(
         Product $product,
-        string $mediaAttrCode,
-        array $clearImages,
-        array $newImages
-    ): void {
-        $storeId = $product->isObjectNew() ? Store::DEFAULT_STORE_ID : (int) $product->getStoreId();
+        string  $mediaAttrCode,
+        array   $clearImages,
+        array   $newImages
+    ): void
+    {
+        $storeId = $product->isObjectNew() ? Store::DEFAULT_STORE_ID : (int)$product->getStoreId();
         /***
          * Attributes values are saved as default value in single store mode
          * @see \Magento\Catalog\Model\ResourceModel\AbstractResource::_saveAttributeValue
@@ -556,11 +557,12 @@ class CreateHandlerOverride implements ExtensionInterface
      */
     private function processMediaAttributeLabel(
         Product $product,
-        string $mediaAttrCode,
-        array $clearImages,
-        array $newImages,
-        array $existImages
-    ): void {
+        string  $mediaAttrCode,
+        array   $clearImages,
+        array   $newImages,
+        array   $existImages
+    ): void
+    {
         $resetLabel = false;
         $attrData = $product->getData($mediaAttrCode);
         if (in_array($attrData, $clearImages)) {
@@ -599,7 +601,7 @@ class CreateHandlerOverride implements ExtensionInterface
      */
     private function getImagesForAllStores(ProductInterface $product)
     {
-        if ($this->imagesGallery ===  null) {
+        if ($this->imagesGallery === null) {
             $storeIds = array_keys($this->storeManager->getStores());
             $storeIds[] = 0;
 
@@ -616,7 +618,7 @@ class CreateHandlerOverride implements ExtensionInterface
      * @param string $imageFile
      * @return bool
      */
-    private function canRemoveImage(ProductInterface $product, string $imageFile) :bool
+    private function canRemoveImage(ProductInterface $product, string $imageFile): bool
     {
         $canRemoveImage = true;
         $gallery = $this->getImagesForAllStores($product);
@@ -625,16 +627,16 @@ class CreateHandlerOverride implements ExtensionInterface
         $storeIds[] = 0;
         $websiteIds = array_map('intval', $product->getWebsiteIds() ?? []);
         foreach ($this->storeManager->getStores() as $store) {
-            if (in_array((int) $store->getWebsiteId(), $websiteIds, true)) {
-                $storeIds[] = (int) $store->getId();
+            if (in_array((int)$store->getWebsiteId(), $websiteIds, true)) {
+                $storeIds[] = (int)$store->getId();
             }
         }
 
         if (!empty($gallery)) {
             foreach ($gallery as $image) {
-                if (in_array((int) $image['store_id'], $storeIds)
+                if (in_array((int)$image['store_id'], $storeIds)
                     && $image['filepath'] === $imageFile
-                    && (int) $image['store_id'] !== $storeId
+                    && (int)$image['store_id'] !== $storeId
                 ) {
                     $canRemoveImage = false;
                 }
@@ -655,7 +657,7 @@ class CreateHandlerOverride implements ExtensionInterface
     private function getMediaAttributeStoreValue(Product $product, string $attributeCode, int $storeId = null): ?string
     {
         $gallery = $this->getImagesForAllStores($product);
-        $storeId = $storeId === null ? (int) $product->getStoreId() : $storeId;
+        $storeId = $storeId === null ? (int)$product->getStoreId() : $storeId;
         foreach ($gallery as $image) {
             if ($image['attribute_code'] === $attributeCode && ((int)$image['store_id']) === $storeId) {
                 return $image['filepath'];
@@ -674,10 +676,11 @@ class CreateHandlerOverride implements ExtensionInterface
      */
     private function processMediaAttributes(
         Product $product,
-        array $existImages,
-        array $newImages,
-        array $clearImages
-    ): void {
+        array   $existImages,
+        array   $newImages,
+        array   $clearImages
+    ): void
+    {
         foreach ($this->getMediaAttributeCodes() as $mediaAttrCode) {
             $this->processMediaAttribute(
                 $product,

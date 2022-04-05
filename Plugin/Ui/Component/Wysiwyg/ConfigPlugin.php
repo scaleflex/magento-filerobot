@@ -1,15 +1,13 @@
 <?php
 
-namespace Scaleflex\FileRobot\Plugin\Ui\Component\Wysiwyg;
+namespace Scaleflex\Filerobot\Plugin\Ui\Component\Wysiwyg;
 
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
-use Scaleflex\FileRobot\Model\FileRobotConfig;
+use Scaleflex\Filerobot\Model\FilerobotConfig;
 
-/**
- * Class Config Plugin
- */
+
 class ConfigPlugin
 {
 
@@ -29,7 +27,7 @@ class ConfigPlugin
     private $scopeConfig;
 
 
-    /** @var FileRobotConfig */
+    /** @var FilerobotConfig */
     private $fileRobotConfig;
 
     /**
@@ -40,10 +38,9 @@ class ConfigPlugin
         $activeEditor = null,
         RequestInterface $request = null,
         ScopeConfigInterface $scopeConfig = null,
-        FileRobotConfig $fileRobotConfig
+        FilerobotConfig $fileRobotConfig
     ) {
         try {
-            /* Fix for Magento 2.1.x & 2.2.x that does not have this class and plugin should not work there */
             if (class_exists(\Magento\Ui\Block\Wysiwyg\ActiveEditor::class)) {
                 $this->activeEditor = $activeEditor
                     ?: ObjectManager::getInstance()->get(\Magento\Ui\Block\Wysiwyg\ActiveEditor::class);
@@ -66,7 +63,7 @@ class ConfigPlugin
      */
     public function beforeGetConfig(
         \Magento\Ui\Component\Wysiwyg\ConfigInterface $configInterface,
-         $data = []
+                                                      $data = []
     ) {
         if (!$this->activeEditor) {
             return [$data];
@@ -87,8 +84,9 @@ class ConfigPlugin
      */
     public function afterGetConfig(
         \Magento\Ui\Component\Wysiwyg\ConfigInterface $configInterface,
-        \Magento\Framework\DataObject $result
-    ) {
+        \Magento\Framework\DataObject                 $result
+    )
+    {
         if (!$this->activeEditor) {
             return $result;
         }
@@ -105,7 +103,7 @@ class ConfigPlugin
             $result->setData('tinymce4', $tinyMCE);
 
             $tinyPlugins = $result->getData('plugins');
-            $newPlugins  = [];
+            $newPlugins = [];
             foreach ($tinyPlugins as $item) {
                 if ($item['name'] !== 'image') {
                     $newPlugins[] = $item;

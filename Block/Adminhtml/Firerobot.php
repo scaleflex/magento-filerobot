@@ -1,36 +1,37 @@
 <?php
 
-namespace Scaleflex\FileRobot\Block\Adminhtml;
+namespace Scaleflex\Filerobot\Block\Adminhtml;
 
 use \Magento\Framework\View\Element\Template;
-use Scaleflex\FileRobot\Model\FileRobotConfig;
+use Scaleflex\Filerobot\Model\FilerobotConfig;
 
-class FireRobot extends Template
+class Firerobot extends Template
 {
 
     /**
-     * @var FileRobotConfig
+     * @var FilerobotConfig
      */
     private $fileRobotConfig;
 
     /**
      * @param Template\Context $context
      * @param array $data
-     * @param FileRobotConfig $fileRobotConfig
+     * @param FilerobotConfig $fileRobotConfig
      */
     public function __construct(
         Template\Context $context,
-        array $data = [],
-        FileRobotConfig $fileRobotConfig
+        array            $data = [],
+        FilerobotConfig $fileRobotConfig
     ) {
         parent::__construct($context, $data);
         $this->fileRobotConfig = $fileRobotConfig;
     }
 
     /**
-     * @return FileRobotConfig
+     * @return FilerobotConfig
      */
-    public function getConfig() {
+    public function getConfig()
+    {
         return $this->fileRobotConfig;
     }
 }

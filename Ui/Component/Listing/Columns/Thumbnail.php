@@ -1,11 +1,11 @@
 <?php
 
-namespace Scaleflex\FileRobot\Ui\Component\Listing\Columns;
+namespace Scaleflex\Filerobot\Ui\Component\Listing\Columns;
 
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
-use Scaleflex\FileRobot\Model\FileRobotConfig;
+use Scaleflex\Filerobot\Model\FilerobotConfig;
 
 /**
  * Class Thumbnail Image
@@ -18,9 +18,16 @@ class Thumbnail extends \Magento\Ui\Component\Listing\Columns\Column
 
     const ALT_FIELD = 'name';
 
+    /** @var \Magento\Catalog\Helper\Image  */
     private $imageHelper;
+
+    /** @var \Magento\Framework\UrlInterface  */
     private $urlBuilder;
+
+    /** @var ProductRepositoryInterface  */
     private $productRepository;
+
+    /** @var FilerobotConfig  */
     private $fileRobotConfig;
 
     /**
@@ -37,11 +44,10 @@ class Thumbnail extends \Magento\Ui\Component\Listing\Columns\Column
         \Magento\Catalog\Helper\Image   $imageHelper,
         \Magento\Framework\UrlInterface $urlBuilder,
         ProductRepositoryInterface      $productRepository,
-        FileRobotConfig                 $fileRobotConfig,
+        FilerobotConfig                 $fileRobotConfig,
         array                           $components = [],
         array                           $data = []
-    )
-    {
+    ) {
         parent::__construct($context, $uiComponentFactory, $components, $data);
         $this->imageHelper = $imageHelper;
         $this->urlBuilder = $urlBuilder;
@@ -63,8 +69,8 @@ class Thumbnail extends \Magento\Ui\Component\Listing\Columns\Column
                 foreach ($dataSource['data']['items'] as & $item) {
                     $product = $this->productRepository->getById($item['entity_id']);
                     $images = $product->getMediaAttributeValues();
-                    if ($images && $images['image'] && $this->fileRobotConfig->isFilerobot($images['image'])) {
-                        $item[$fieldName . '_src'] = $images['image'];
+                    if (!empty($images) && $images['thumbnail'] && $this->fileRobotConfig->isFilerobot($images['thumbnail'])) {
+                        $item[$fieldName . '_src'] = $images['thumbnail'];
                         $item[$fieldName . '_alt'] = $this->getAlt($item) ?: $product->getName();
                         $item[$fieldName . '_link'] = $this->urlBuilder->getUrl(
                             'catalog/product/edit',

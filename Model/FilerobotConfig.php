@@ -1,10 +1,10 @@
 <?php
 
-namespace Scaleflex\FileRobot\Model;
+namespace Scaleflex\Filerobot\Model;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 
-class FileRobotConfig
+class FilerobotConfig
 {
 
     const SCALEFLEX_FILEROBOT_CDN = 'filerobot.com';
@@ -49,7 +49,8 @@ class FileRobotConfig
      * File Robot Token
      * @return string | null
      */
-    public function getToken() {
+    public function getToken()
+    {
         return $this->scopeConfig->getValue(self::SCALEFLEX_FILEROBOT_TOKEN, ScopeConfigInterface::SCOPE_TYPE_DEFAULT);
     }
 
@@ -57,7 +58,8 @@ class FileRobotConfig
      * File Robot template id
      * @return string | null
      */
-    public function getTemplateId() {
+    public function getTemplateId()
+    {
         return $this->scopeConfig->getValue(self::SCALEFLEX_FILEROBOT_TEMPLATEID, ScopeConfigInterface::SCOPE_TYPE_DEFAULT);
     }
 
@@ -65,7 +67,8 @@ class FileRobotConfig
      * File Robot upload directory
      * @return string | null
      */
-    public function getUploadDir() {
+    public function getUploadDir()
+    {
         return $this->scopeConfig->getValue(self::SCALEFLEX_FILEROBOT_UPLOAD_DIRECTORY, ScopeConfigInterface::SCOPE_TYPE_DEFAULT);
     }
 
@@ -73,7 +76,8 @@ class FileRobotConfig
      * Get current status
      * @return mixed
      */
-    public function getStatus() {
+    public function getStatus()
+    {
         return $this->scopeConfig->getValue(self::SCALEFLEX_FILEROBOT_ENABLE, ScopeConfigInterface::SCOPE_TYPE_DEFAULT);
     }
 
@@ -81,11 +85,12 @@ class FileRobotConfig
      * File Robot enable/disable check function
      * @return boolean
      */
-    public function checkStatus() {
+    public function checkStatus()
+    {
         return $this->getStatus() &&
-               $this->getToken() &&
-               $this->getTemplateId() &&
-               $this->getUploadDir();
+            $this->getToken() &&
+            $this->getTemplateId() &&
+            $this->getUploadDir();
     }
 
 
@@ -93,7 +98,8 @@ class FileRobotConfig
      * @param string $url
      * @return bool
      */
-    public function isFilerobot(string $url) {
-        return str_contains($url, FileRobotConfig::SCALEFLEX_FILEROBOT_CDN);
+    public function isFilerobot(string $url)
+    {
+        return str_contains($url, FilerobotConfig::SCALEFLEX_FILEROBOT_CDN);
     }
 }

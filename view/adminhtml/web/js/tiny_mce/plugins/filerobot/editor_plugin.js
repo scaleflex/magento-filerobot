@@ -10,7 +10,7 @@ tinyMCE.addI18n({
 define([
     'jquery'
 ], function ($) {
-    tinymce.create('tinymce.plugins.ScaleflexFileRobot', {
+    tinymce.create('tinymce.plugins.ScaleflexFilerobot', {
         /**
          * @param {tinymce.Editor} ed Editor instance that the plugin is initialized in.
          * @param {string} url Absolute URL to where the plugin is located.
@@ -28,17 +28,17 @@ define([
                 image: url + '/img/icon.svg'
             });
 
-            ed.on('ObjectResizeStart', function(e) {
+            ed.on('ObjectResizeStart', function (e) {
                 window.activeObject = e;
             });
 
-            ed.on('ObjectResized', function(e) {
+            ed.on('ObjectResized', function (e) {
                 const object = jQuery(e.target);
 
                 if (object.prop('nodeName') === 'IMG') {
                     // Get OLD Value
                     const oldObject = window.activeObject;
-                    const oldWidth  = oldObject.width;
+                    const oldWidth = oldObject.width;
                     const oldHeight = oldObject.height;
 
                     const newWidth = e.width;
@@ -78,5 +78,5 @@ define([
     });
 
     // Register plugin
-    tinymce.PluginManager.add('filerobot', tinymce.plugins.ScaleflexFileRobot);
+    tinymce.PluginManager.add('filerobot', tinymce.plugins.ScaleflexFilerobot);
 })

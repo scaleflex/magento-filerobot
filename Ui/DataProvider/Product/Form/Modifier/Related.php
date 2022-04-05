@@ -1,48 +1,54 @@
 <?php
 
-namespace Scaleflex\FileRobot\Ui\DataProvider\Product\Form\Modifier;
+namespace Scaleflex\Filerobot\Ui\DataProvider\Product\Form\Modifier;
 
 use Magento\Catalog\Api\ProductRepositoryInterface;
-use Scaleflex\FileRobot\Model\FileRobotConfig;
+use Scaleflex\Filerobot\Model\FilerobotConfig;
 
 class Related
 {
 
-    /** @var ProductRepositoryInterface  */
+    /** @var ProductRepositoryInterface */
     protected $productRepository;
 
-    /** @var FileRobotConfig  */
+    /** @var FilerobotConfig */
     protected $fileRobotConfig;
 
     /**
      * @param ProductRepositoryInterface $productRepository
-     * @param FileRobotConfig $fileRobotConfig
+     * @param FilerobotConfig $fileRobotConfig
      */
     public function __construct(
         ProductRepositoryInterface $productRepository,
-        FileRobotConfig $fileRobotConfig
+        FilerobotConfig $fileRobotConfig
     ) {
         $this->productRepository = $productRepository;
         $this->fileRobotConfig = $fileRobotConfig;
     }
 
+    /**
+     * @param \Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Related $subject
+     * @param $result
+     * @return array
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
     public function afterModifyData(
         \Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Related $subject,
-        $result
+                                                                       $result
     ) {
         foreach ($result as $key => $value) {
             if ($key !== 'config') {
                 $links = $value['links'];
                 foreach ($links as &$link) {
-                   if (!empty($link)) {
-                       foreach ($link as &$linked) {
+                    if (!empty($link)) {
+                        foreach ($link as &$linked) {
                             $product = $this->productRepository->getById($linked['id']);
                             $images = $product->getMediaAttributeValues();
-                            if (!empty($images) && $images['image'] && $this->fileRobotConfig->isFilerobot($images['image'])) {
-                               $linked['thumbnail'] = $images['image'];
+                            if (!empty($images) && $images['thumbnail'] && $this->fileRobotConfig->isFilerobot($images['thumbnail'])) {
+                                $linked['thumbnail'] = $images['thumbnail'];
                             }
-                       }
-                   }
+                        }
+                    }
                 }
                 $result[$key]['links'] = $links;
             }

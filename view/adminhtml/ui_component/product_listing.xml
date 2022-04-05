@@ -4,7 +4,7 @@
 
     <columns name="product_columns" class="Magento\Catalog\Ui\Component\Listing\Columns">
         <column name="thumbnail"
-                class="Scaleflex\FileRobot\Ui\Component\Listing\Columns\Thumbnail"
+                class="Scaleflex\Filerobot\Ui\Component\Listing\Columns\Thumbnail"
                 component="Magento_Ui/js/grid/columns/thumbnail"
                 sortOrder="20">
             <settings>
