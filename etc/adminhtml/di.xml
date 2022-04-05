@@ -8,4 +8,7 @@
     <type name="Magento\Ui\Component\Wysiwyg\ConfigInterface">
     	<plugin disabled="false" name="Scaleflex_TinyMCE_Disable_Image" sortOrder="10" type="Scaleflex\FileRobot\Plugin\Ui\Component\Wysiwyg\ConfigPlugin"/>
     </type>
+    <type name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Related">
+        <plugin disabled="false" name="Scaleflex_Related_Image" sortOrder="10" type="Scaleflex\FileRobot\Ui\DataProvider\Product\Form\Modifier\Related"/>
+    </type>
 </config>

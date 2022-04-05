@@ -3,7 +3,7 @@
 namespace Scaleflex\FileRobot\Ui\Component\Listing\Columns;
 
 use Magento\Catalog\Api\ProductRepositoryInterface;
-    use Magento\Framework\View\Element\UiComponentFactory;
+use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
 use Scaleflex\FileRobot\Model\FileRobotConfig;
 

@@ -64,19 +64,27 @@
                     files.forEach((selected, key) => {
                         let link = selected.link;
 
+                        let url = new URL(link);
+                        let width  = selected.file.info.img_w;
+                        let height = selected.file.info.img_h;
+
                         if (!link.includes('width=')) {
-                            link += ('&width=' + selected.file.info.img_w);
+                            link += ('&width=' + width);
+                        } else {
+                            width = url.searchParams.get("width");
                         }
 
                         if (!link.includes('height=')) {
-                            link += ('&height=' + selected.file.info.img_h);
+                            link += ('&height=' + height);
+                        } else {
+                            height = url.searchParams.get("height");
                         }
 
                         window.fileRobotActiveEditor.execCommand('mceInsertContent', false, '<div>' +
                             '<img src="' + link + '" ' +
-                            ' width="'+selected.file.info.img_w+'"' +
-                            ' height="'+selected.file.info.img_h+'"' +
-                            ' alt="' + selected.file.name + '" /> ' +
+                            ' width="'+width+'"' +
+                            ' height="'+height+'"' +
+                            ' alt="' + selected.file.meta.title + '" /> ' +
                             '</div>');
                     })
                     window.fileRobotActiveEditor = undefined
