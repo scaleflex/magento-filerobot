@@ -3,8 +3,8 @@
     <update handle="editor"/>
     <body>
         <referenceContainer name="footer">
-            <block class="Scaleflex\FileRobot\Block\Adminhtml\FireRobot"
-                   name="firerobot" template="Scaleflex_FileRobot::firerobot.phtml" />
+            <block class="Scaleflex\Filerobot\Block\Adminhtml\Firerobot"
+                   name="firerobot" template="Scaleflex_Filerobot::firerobot.phtml" />
         </referenceContainer>
     </body>
 </page>

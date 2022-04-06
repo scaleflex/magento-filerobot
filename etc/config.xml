@@ -1,14 +1,13 @@
 <?xml version="1.0" ?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
 	<default>
-		<cms>
-			<scaleflex_filerobot>
-			    <enable/>
-				<cname/>
-				<token/>
-				<template_id/>
-				<upload_directory>/</upload_directory>
-			</scaleflex_filerobot>
-		</cms>
+		<scaleflex_filerobot>
+            <general>
+               <enable/>
+               <token/>
+               <template_id/>
+               <upload_directory>/magento</upload_directory>
+            </general>
+		</scaleflex_filerobot>
 	</default>
 </config>

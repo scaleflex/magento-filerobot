@@ -6,7 +6,7 @@
 				<resource id="Magento_Backend::stores">
 					<resource id="Magento_Backend::stores_settings">
 						<resource id="Magento_Config::config">
-							<resource id="Scaleflex_FileRobot::config_scaleflex_filerobot" title="cms"/>
+							<resource id="Scaleflex_Filerobot::config_scaleflex_filerobot" title="cms"/>
 						</resource>
 					</resource>
 				</resource>

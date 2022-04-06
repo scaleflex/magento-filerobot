@@ -1,6 +1,6 @@
 {
     "name": "scaleflex/module-filerobot",
-    "description": "Scaleflex File Robot Magento Extension",
+    "description": "Scaleflex Filerobot Magento Extension",
     "type": "magento2-module",
     "license": "GPL-3.0",
     "authors": [
@@ -16,7 +16,7 @@
             "registration.php"
         ],
         "psr-4": {
-            "Scaleflex\\FileRobot\\": ""
+            "Scaleflex\\Filerobot\\": ""
         }
     }
 }

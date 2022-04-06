@@ -1,26 +1,25 @@
 <?php
 
-namespace Scaleflex\FileRobot\Plugin\Wysiwyg;
+namespace Scaleflex\Filerobot\Plugin\Wysiwyg;
 
 use Magento\Cms\Model\Wysiwyg\Config as Subject;
 use Magento\Framework\DataObject;
-use Scaleflex\FileRobot\Model\Wysiwyg\FileRobot;
+use Scaleflex\Filerobot\Model\Wysiwyg\Filerobot;
 
 class ConfigPlugin
 {
     /**
-     * @var FileRobot
+     * @var Filerobot
      */
     private $fileRobot;
 
     /**
      * ConfigPlugin constructor.
-     * @param FileRobot $textWithBox
+     * @param Filerobot $textWithBox
      */
     public function __construct(
-        FileRobot $fileRobot
-    )
-    {
+        Filerobot $fileRobot
+    ) {
         $this->fileRobot = $fileRobot;
     }
 

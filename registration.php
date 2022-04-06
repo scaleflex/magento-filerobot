@@ -6,5 +6,5 @@
 
 use Magento\Framework\Component\ComponentRegistrar;
 
-ComponentRegistrar::register(ComponentRegistrar::MODULE, 'Scaleflex_FileRobot', __DIR__);
+ComponentRegistrar::register(ComponentRegistrar::MODULE, 'Scaleflex_Filerobot', __DIR__);
 

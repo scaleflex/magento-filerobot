@@ -2,8 +2,31 @@
     <policies>
         <policy id="script-src">
             <values>
-                <value id="scaleflex" type="host">*.scaleflex.it</value>
+                <value id="scaleflex-script" type="host">*.scaleflex.it</value>
             </values>
+        </policy>
+        <policy id="style-src">
+             <values>
+                <value id="scaleflex-style" type="host">*.scaleflex.it</value>
+             </values>
+         </policy>
+         <policy id="font-src">
+            <values>
+                 <value id="scaleflex-font" type="host">*.scaleflex.it</value>
+            </values>
+         </policy>
+         <policy id="img-src">
+            <values>
+                 <value id="filerobot-img" type="host">*.filerobot.com</value>
+                 <value id="clouldimgage" type="host">*.cloudimg.io</value>
+                 <value id="flaticon" type="host">*.flaticon.com</value>
+            </values>
+         </policy>
+         <policy id="connect-src">
+            <values>
+                 <value id="ultrafast" type="host">*.ultrafast.io</value>
+                 <value id="filerobot-connect" type="host">*.filerobot.com</value>
+           </values>
         </policy>
     </policies>
 </csp_whitelist>

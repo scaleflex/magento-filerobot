@@ -1,6 +1,14 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <type name="Magento\Cms\Model\Wysiwyg\Config">
-        <plugin name="scaleflex_filerobot_wysiwyg_config_plugin" type="Scaleflex\FileRobot\Plugin\Wysiwyg\ConfigPlugin"/>
+        <plugin name="scaleflex_filerobot_wysiwyg_config_plugin" type="Scaleflex\Filerobot\Plugin\Wysiwyg\ConfigPlugin"/>
+    </type>
+    <preference for="\Magento\Catalog\Block\Adminhtml\Product\Helper\Form\Gallery\Content"
+                type="Scaleflex\Filerobot\Block\Adminhtml\Product\Helper\Form\Gallery\Content" />
+    <type name="Magento\Ui\Component\Wysiwyg\ConfigInterface">
+    	<plugin disabled="false" name="Scaleflex_TinyMCE_Disable_Image" sortOrder="10" type="Scaleflex\Filerobot\Plugin\Ui\Component\Wysiwyg\ConfigPlugin"/>
+    </type>
+    <type name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Related">
+        <plugin disabled="false" name="Scaleflex_Related_Image" sortOrder="10" type="Scaleflex\Filerobot\Ui\DataProvider\Product\Form\Modifier\Related"/>
     </type>
 </config>

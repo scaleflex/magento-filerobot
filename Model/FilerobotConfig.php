@@ -1,35 +1,33 @@
 <?php
 
-namespace Scaleflex\FileRobot\Model;
+namespace Scaleflex\Filerobot\Model;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 
-class FileRobotConfig
+class FilerobotConfig
 {
+
+    const SCALEFLEX_FILEROBOT_CDN = 'filerobot.com';
+
     /**
      * Scaleflex Enable/Disable config
      */
-    const SCALEFLEX_FILEROBOT_ENABLE = 'cms/scaleflex_filerobot/enable';
-
-    /**
-     * Scaleflex CNAME config
-     */
-    const SCALEFLEX_FILEROBOT_CNAME = 'cms/scaleflex_filerobot/cname';
+    const SCALEFLEX_FILEROBOT_ENABLE = 'scaleflex_filerobot/general/enable';
 
     /**
      * Scaleflex File Robot token config
      */
-    const SCALEFLEX_FILEROBOT_TOKEN = 'cms/scaleflex_filerobot/token';
+    const SCALEFLEX_FILEROBOT_TOKEN = 'scaleflex_filerobot/general/token';
 
     /**
      * Scaleflex File Robot template id config
      */
-    const SCALEFLEX_FILEROBOT_TEMPLATEID = 'cms/scaleflex_filerobot/template_id';
+    const SCALEFLEX_FILEROBOT_TEMPLATEID = 'scaleflex_filerobot/general/template_id';
 
     /**
      * Scaleflex File Robot upload directory config
      */
-    const SCALEFLEX_FILEROBOT_UPLOAD_DIRECTORY = 'cms/scaleflex_filerobot/upload_directory';
+    const SCALEFLEX_FILEROBOT_UPLOAD_DIRECTORY = 'scaleflex_filerobot/general/upload_directory';
 
 
     /**
@@ -51,7 +49,8 @@ class FileRobotConfig
      * File Robot Token
      * @return string | null
      */
-    public function getToken() {
+    public function getToken()
+    {
         return $this->scopeConfig->getValue(self::SCALEFLEX_FILEROBOT_TOKEN, ScopeConfigInterface::SCOPE_TYPE_DEFAULT);
     }
 
@@ -59,7 +58,8 @@ class FileRobotConfig
      * File Robot template id
      * @return string | null
      */
-    public function getTemplateId() {
+    public function getTemplateId()
+    {
         return $this->scopeConfig->getValue(self::SCALEFLEX_FILEROBOT_TEMPLATEID, ScopeConfigInterface::SCOPE_TYPE_DEFAULT);
     }
 
@@ -67,15 +67,39 @@ class FileRobotConfig
      * File Robot upload directory
      * @return string | null
      */
-    public function getUploadDir() {
+    public function getUploadDir()
+    {
         return $this->scopeConfig->getValue(self::SCALEFLEX_FILEROBOT_UPLOAD_DIRECTORY, ScopeConfigInterface::SCOPE_TYPE_DEFAULT);
+    }
+
+    /**
+     * Get current status
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->scopeConfig->getValue(self::SCALEFLEX_FILEROBOT_ENABLE, ScopeConfigInterface::SCOPE_TYPE_DEFAULT);
     }
 
     /**
      * File Robot enable/disable check function
      * @return boolean
      */
-    public function checkStatus() {
-        return $this->scopeConfig->getValue(self::SCALEFLEX_FILEROBOT_ENABLE, ScopeConfigInterface::SCOPE_TYPE_DEFAULT);
+    public function checkStatus()
+    {
+        return $this->getStatus() &&
+            $this->getToken() &&
+            $this->getTemplateId() &&
+            $this->getUploadDir();
+    }
+
+
+    /**
+     * @param string $url
+     * @return bool
+     */
+    public function isFilerobot(string $url)
+    {
+        return str_contains($url, FilerobotConfig::SCALEFLEX_FILEROBOT_CDN);
     }
 }
