@@ -6,7 +6,7 @@
                <enable/>
                <token/>
                <template_id/>
-               <upload_directory>/</upload_directory>
+               <upload_directory>/magento</upload_directory>
             </general>
 		</scaleflex_filerobot>
 	</default>

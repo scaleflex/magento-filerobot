@@ -3,7 +3,7 @@
     <update handle="editor"/>
     <body>
         <referenceContainer name="footer">
-            <block class="Scaleflex\Filerobot\Block\Adminhtml\FireRobot"
+            <block class="Scaleflex\Filerobot\Block\Adminhtml\Firerobot"
                    name="firerobot" template="Scaleflex_Filerobot::firerobot.phtml" />
         </referenceContainer>
     </body>

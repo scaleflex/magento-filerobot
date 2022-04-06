@@ -10,4 +10,9 @@
          <observer name="change_template" disabled="true"/>
          <observer name="filerobot_change_template" instance="Scaleflex\Filerobot\Observer\ChangeTemplateObserver" />
     </event>
+
+    <event name="admin_system_config_changed_section_scaleflex_filerobot">
+        <observer name="admin_system_config_changed_section_scaleflex_filerobot"
+                  instance="Scaleflex\Filerobot\Observer\ConfigChange"/>
+    </event>
 </config>

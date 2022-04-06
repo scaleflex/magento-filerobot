@@ -20,7 +20,7 @@ define([
             t.editor = ed;
             ed.contentCSS = ['filerobot'];
 
-            ed.addCommand('mceFileRobotModal', t._showFireRobotModal, t);
+            ed.addCommand('mceFileRobotModal', t._showFirerobotModal, t);
 
             ed.addButton('filerobot', {
                 title: 'filerobot.title',
@@ -70,7 +70,7 @@ define([
             };
         },
 
-        _showFireRobotModal: function () {
+        _showFirerobotModal: function () {
             var ed = this.editor;
             window.fileRobotActiveEditor = ed;
             $("#file-robot-modal-btn").trigger('click')

@@ -33,6 +33,8 @@ integration below to get the product images.
 Once the steps listed above are completed enter your Filerobot token, security template into the 
 Filerobot module configuration the Magento admin interface
 
+You can only enable if token, security template id are correct
+
 - Filerobot Token: Your Filerobot token
 - Security Template Identifier: Your security template ID
 - Filerobot upload directory: Folder path to your asset, ie /magento

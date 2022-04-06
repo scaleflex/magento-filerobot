@@ -56,7 +56,7 @@ class Button extends Field
      */
     public function getButtonHtml()
     {
-        if ($this->fileRobotConfig->checkStatus()) {
+        if ($this->fileRobotConfig->getToken() && $this->fileRobotConfig->getTemplateId()) {
             $button = $this->getLayout()->createBlock('Magento\Backend\Block\Widget\Button')->setData(['id' => 'filerobot_test_connection', 'label' => __('Test Connection'),]);
         } else {
             $button = $this->getLayout()->createBlock('Magento\Backend\Block\Widget\Button')->setData(['id' => 'filerobot_test_connection', 'label' => __('Test Connection'), 'disabled' => 'disabled']);
