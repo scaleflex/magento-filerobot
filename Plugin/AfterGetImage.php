@@ -3,19 +3,28 @@
 namespace Scaleflex\Filerobot\Plugin;
 
 use Magento\Catalog\Block\Product\AbstractProduct;
+use Magento\Catalog\Helper\Image;
 use Scaleflex\Filerobot\Model\FilerobotConfig;
 
 class AfterGetImage
 {
+
+    /** @var Image  */
+    protected $imageHelper;
+
     /** @var FilerobotConfig  */
     protected FilerobotConfig $fileRobotConfig;
 
+
     /**
      * @param FilerobotConfig $fileRobotConfig
+     * @param Image $imageHelper
      */
     public function __construct(
-        FilerobotConfig $fileRobotConfig
+        FilerobotConfig $fileRobotConfig,
+        Image $imageHelper
     ) {
+        $this->imageHelper = $imageHelper;
         $this->fileRobotConfig = $fileRobotConfig;
     }
 
@@ -40,8 +49,8 @@ class AfterGetImage
                         parse_str($url['query'], $query);
 
                         $image['image_url'] = $images['image'];
-                        $image['width'] = !empty($query['width']) ? $query['width'] : '240';
-                        $image['height'] = !empty($query['height']) ? $query['height'] : '300';
+                        $image['width'] = !empty($query['width']) ? $query['width'] : $this->imageHelper->init($product, 'product_base_image')->getWidth();
+                        $image['height'] = !empty($query['height']) ? $query['height'] : $this->imageHelper->init($product, 'product_base_image')->getHeight();
                         $image['ratio'] = "1.25";
                         $image['label'] = $product->getName();
                         $image['custom_attributes'] = [];

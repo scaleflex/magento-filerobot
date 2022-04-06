@@ -3,7 +3,6 @@
 namespace Scaleflex\Filerobot\Helper;
 
 use Magento\Catalog\Api\ProductRepositoryInterface;
-use Magento\Catalog\Model\ProductFactory;
 use Scaleflex\Filerobot\Model\FilerobotConfig;
 use Magento\Catalog\Helper\Image as ProductImageHelper;
 
@@ -23,9 +22,9 @@ class Filerobot
      * @param ProductImageHelper $imageHelper
      */
     public function __construct(
-        ProductFactory     $productRepository,
-        FilerobotConfig    $filerobotConfig,
-        ProductImageHelper $imageHelper
+        ProductRepositoryInterface      $productRepository,
+        FilerobotConfig                 $filerobotConfig,
+        ProductImageHelper              $imageHelper
     )
     {
         $this->productRepositoty = $productRepository;
@@ -48,7 +47,8 @@ class Filerobot
                 if (!empty($images) && $images[$imageType] && $this->filerobotConfig->isFilerobot($images[$imageType])) {
                     return $images[$imageType];
                 }
-                return $this->imageHelper->init($product, 'product_'.$imageType.'image')->getUrl();
+                if ($imageType === 'image') $imageType = 'base';
+                return $this->imageHelper->init($product, 'product_' . $imageType . '_image')->getUrl();
             }
             return null;
         } catch (\Exception $exception) {
