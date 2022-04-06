@@ -23,7 +23,7 @@ integration below to get the product images.
 
 ### Zip file
 
-- Unzip the zip file in `app/code/Scaleflex`
+- Unzip the zip file in `app/code/Scaleflex/Filerobot`
 - Enable the module by running `php bin/magento module:enable Scaleflex_FileRobot`
 - Apply database updates by running `php bin/magento setup:upgrade`
 - Apply Static by running `php bin/magento setup:static-content:deploy`
