@@ -96,20 +96,22 @@ class ConfigPlugin
 
         if ($this->fileRobotConfig->checkStatus()) {
             $tinyMCE = $result->getData('tinymce4');
-            $toolbar = $tinyMCE['toolbar'];
-            $plugins = $tinyMCE['plugins'];
-            $tinyMCE['toolbar'] = str_replace('image', '', $toolbar);
-            $tinyMCE['plugins'] = str_replace('image', '', $plugins);
-            $result->setData('tinymce4', $tinyMCE);
+            if ($tinyMCE) {
+                $toolbar = $tinyMCE['toolbar'];
+                $plugins = $tinyMCE['plugins'];
+                $tinyMCE['toolbar'] = str_replace('image', '', $toolbar);
+                $tinyMCE['plugins'] = str_replace('image', '', $plugins);
+                $result->setData('tinymce4', $tinyMCE);
 
-            $tinyPlugins = $result->getData('plugins');
-            $newPlugins = [];
-            foreach ($tinyPlugins as $item) {
-                if ($item['name'] !== 'image') {
-                    $newPlugins[] = $item;
+                $tinyPlugins = $result->getData('plugins');
+                $newPlugins = [];
+                foreach ($tinyPlugins as $item) {
+                    if ($item['name'] !== 'image') {
+                        $newPlugins[] = $item;
+                    }
                 }
+                $result->setData('plugins', $newPlugins);
             }
-            $result->setData('plugins', $newPlugins);
         }
 
         return $result;
