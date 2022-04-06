@@ -53,25 +53,25 @@ Some place will be overridden by Filerobot:
 - Example code to get product image in your code Block
 
 ```injectablephp
-            $imageType = ‘image’; //image, thumbnail, small
-        	try {
-            /** @var \Magento\Catalog\Api\ProductRepositoryInterface  $productRepositoty */
-            $product = $this->productRepositoty->getById($productId);
+$imageType = ‘image’; //image, thumbnail, small
+try {
+   /** @var \Magento\Catalog\Api\ProductRepositoryInterface  $productRepositoty */
+   $product = $this->productRepositoty->getById($productId);
  
-            if ($product) {
-                $images = $product->getMediaAttributeValues();
-                /** @var \Scaleflex\Filerobot\Model\FilerobotConfig $filerobotConfig */
-                if (!empty($images) && $images[$imageType] && $filerobotConfig->isFilerobot($images[$imageType])) {
-                    return $images[$imageType];
-                }
-                // If not filerobot image type you can get default url like below
-                if ($imageType === 'image') $imageType = 'base';
-                return $this->imageHelper->init($product, 'product_' . $imageType . '_image')->getUrl();
-            }
-            return null
-        } catch (\Exception $exception) {
-            // Exception          
-        }
+   if ($product) {
+       $images = $product->getMediaAttributeValues();
+       /** @var \Scaleflex\Filerobot\Model\FilerobotConfig $filerobotConfig */
+       if (!empty($images) && $images[$imageType] && $filerobotConfig->isFilerobot($images[$imageType])) {
+               return $images[$imageType];
+       }
+       // If not filerobot image type you can get default url like below
+       if ($imageType === 'image') $imageType = 'base';
+       return $this->imageHelper->init($product, 'product_' . $imageType . '_image')->getUrl();
+     }
+     return null;
+} catch (\Exception $exception) {
+     // Exception          
+}
 
 ```
 
@@ -81,3 +81,8 @@ If you have any issue with the modification your template files, feel free to co
 ## Reference
 - [Filerobot DAM Document](https://docs.filerobot.com/go/filerobot-documentation/en/plugins-and-integrations/media-asset-widget-fmaw)
 - [Filerobot Website](https://www.scaleflex.com/en/home)
+
+
+## Todo
+
+- [ ] Page Builder support
