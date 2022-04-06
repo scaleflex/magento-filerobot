@@ -20,7 +20,7 @@
                      <comment>Enter token: for example fmpsaXXX</comment>
                  </field>
                  <field id="template_id" type="text" sortOrder="10" showInWebsite="0" showInStore="0" showInDefault="1" translate="label">
-                     <label>Security Template Identifer</label>
+                     <label>Security Template Identifier</label>
                      <comment>Enter token: for example SECU_3268740A1382466B9XBC390D8</comment>
                  </field>
                  <field id="upload_directory" type="text" sortOrder="10" showInWebsite="0" showInStore="0" showInDefault="1" translate="label">

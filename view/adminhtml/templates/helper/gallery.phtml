@@ -272,6 +272,10 @@ $secureRenderer->renderTag('script', [], "jQuery('body').trigger('contentUpdated
 
                         let link = selected.link;
 
+                        let url = new URL(link);
+                        let width = selected.file.info.img_w;
+                        let height = selected.file.info.img_h;
+
                         if (!link.includes('width=')) {
                             link += ('&width=' + width);
                         }
