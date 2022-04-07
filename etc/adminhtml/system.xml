@@ -25,7 +25,7 @@
                  </field>
                  <field id="upload_directory" type="text" sortOrder="10" showInWebsite="0" showInStore="0" showInDefault="1" translate="label">
                      <label>Filerobot upload directory</label>
-                     <comment>By default: /</comment>
+                     <comment>Base directory where your Magento Digital Assets will be stored on the Filerobot Library</comment>
                  </field>
                  <field id="filerobot_action" translate="label" type="button" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
                      <frontend_model>Scaleflex\Filerobot\Block\System\Config\Button</frontend_model>
