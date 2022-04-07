@@ -9,7 +9,7 @@
             "email": "tung.dang@scaleflex.com"
         }
     ],
-    "minimum-stability": "dev",
+    "version": "1.0.0",
     "require": {},
     "autoload": {
         "files": [
