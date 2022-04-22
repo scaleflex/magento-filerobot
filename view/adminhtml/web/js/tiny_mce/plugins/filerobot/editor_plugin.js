@@ -1,12 +1,3 @@
-tinyMCE.addI18n({
-    en: {
-        filerobot:
-            {
-                title: "File Robot"
-            },
-    }
-});
-
 define([
     'jquery'
 ], function ($) {
@@ -23,7 +14,7 @@ define([
             ed.addCommand('mceFileRobotModal', t._showFirerobotModal, t);
 
             ed.addButton('filerobot', {
-                title: 'filerobot.title',
+                title: 'Filerobot DAM Widget',
                 cmd: 'mceFileRobotModal',
                 image: url + '/img/icon.svg'
             });
