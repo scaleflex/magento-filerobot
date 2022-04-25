@@ -4,6 +4,7 @@ namespace Scaleflex\Filerobot\Plugin;
 
 use Magento\Catalog\Block\Product\AbstractProduct;
 use Magento\Catalog\Helper\Image;
+use Scaleflex\Filerobot\Helper\Filerobot;
 use Scaleflex\Filerobot\Model\FilerobotConfig;
 
 class AfterGetImage
@@ -15,17 +16,23 @@ class AfterGetImage
     /** @var FilerobotConfig  */
     protected FilerobotConfig $fileRobotConfig;
 
+    /** @var Filerobot  */
+    protected $filerobotHelper;
+
 
     /**
      * @param FilerobotConfig $fileRobotConfig
      * @param Image $imageHelper
+     * @param Filerobot $filerobotHelper
      */
     public function __construct(
         FilerobotConfig $fileRobotConfig,
-        Image $imageHelper
+        Image $imageHelper,
+        Filerobot $filerobotHelper
     ) {
         $this->imageHelper = $imageHelper;
         $this->fileRobotConfig = $fileRobotConfig;
+        $this->filerobotHelper = $filerobotHelper;
     }
 
     /**
@@ -44,13 +51,10 @@ class AfterGetImage
                 if (!empty($images) && $images['image']) {
                     if ($this->fileRobotConfig->isFilerobot($images['image'])) {
                         $image = [];
-                        //Handle URL
-                        $url = parse_url($images['image']);
-                        parse_str($url['query'], $query);
-
-                        $image['image_url'] = $images['image'];
-                        $image['width'] = !empty($query['width']) ? $query['width'] : $this->imageHelper->init($product, 'product_base_image')->getWidth();
-                        $image['height'] = !empty($query['height']) ? $query['height'] : $this->imageHelper->init($product, 'product_base_image')->getHeight();
+                        $imageSize = $this->imageHelper->init($product, 'product_base_image');
+                        $image['width'] = $imageSize->getWidth();
+                        $image['height'] = $imageSize->getHeight();
+                        $image['image_url'] = $this->filerobotHelper->buildImageBySize($images['image'], $imageSize->getHeight(), $imageSize->getHeight());
                         $image['ratio'] = "1.25";
                         $image['label'] = $product->getName();
                         $image['custom_attributes'] = [];

@@ -15,15 +15,13 @@ class Firerobot extends Template
 
     /**
      * @param Template\Context $context
-     * @param array $data
      * @param FilerobotConfig $fileRobotConfig
      */
     public function __construct(
         Template\Context $context,
-        array            $data = [],
         FilerobotConfig $fileRobotConfig
     ) {
-        parent::__construct($context, $data);
+        parent::__construct($context);
         $this->fileRobotConfig = $fileRobotConfig;
     }
 

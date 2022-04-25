@@ -55,4 +55,20 @@ class Filerobot
             return null;
         }
     }
+
+    /**
+     * @param $url
+     * @param $width
+     * @param $height
+     * @return string
+     */
+    public function buildImageBySize($url, $width, $height)
+    {
+        $url             = parse_url($url);
+        parse_str($url['query'], $query);
+        $query['width']  = $width;
+        $query['height'] = $height;
+        $url['query']    = http_build_query($query);
+        return  $url['scheme'].'://'.$url['host'].$url['path'].'?'.$url['query'];
+    }
 }
