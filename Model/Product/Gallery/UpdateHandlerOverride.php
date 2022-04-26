@@ -43,10 +43,10 @@ class UpdateHandlerOverride extends CreateHandlerOverride
         Data                                $jsonHelper,
         Config                              $mediaConfig,
         Filesystem                          $filesystem,
+        FilerobotConfig                     $fileRobotConfig,
         Database                            $fileStorageDb,
         StoreManagerInterface               $storeManager = null,
-        ?AttributeValue                     $attributeValue = null,
-        FilerobotConfig $fileRobotConfig
+        ?AttributeValue                     $attributeValue = null
     ) {
         parent::__construct(
             $metadataPool,
@@ -56,8 +56,8 @@ class UpdateHandlerOverride extends CreateHandlerOverride
             $mediaConfig,
             $filesystem,
             $fileStorageDb,
-            $storeManager,
-            $fileRobotConfig
+            $fileRobotConfig,
+            $storeManager
         );
         $this->attributeValue = $attributeValue ?: ObjectManager::getInstance()->get(AttributeValue::class);
     }

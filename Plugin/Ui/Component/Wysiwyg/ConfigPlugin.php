@@ -35,10 +35,10 @@ class ConfigPlugin
      * @param null $activeEditor
      */
     public function __construct(
+        FilerobotConfig $fileRobotConfig,
         $activeEditor = null,
         RequestInterface $request = null,
-        ScopeConfigInterface $scopeConfig = null,
-        FilerobotConfig $fileRobotConfig
+        ScopeConfigInterface $scopeConfig = null
     ) {
         try {
             if (class_exists(\Magento\Ui\Block\Wysiwyg\ActiveEditor::class)) {
