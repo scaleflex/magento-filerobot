@@ -42,7 +42,7 @@ class AddImageToGallery
         foreach ($images as $image) {
             if ($this->fileRobotConfig->isFilerobot($image->getData('file'))) {
                 $url = $image->getData('file');
-                $entityId = $image->getData('entity_id');
+                $entityId = $image->getData('entity_id') ? $image->getData('entity_id') : $image->getData('row_id');
                 $product  = $this->productRepository->getById($entityId);
                 if ($product) {
                     $thumbImageSize = $this->imageHelper->init($product, 'product_thumbnail_image');

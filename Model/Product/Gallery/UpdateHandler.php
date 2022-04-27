@@ -6,7 +6,6 @@ use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Api\ProductAttributeRepositoryInterface;
 use Magento\Catalog\Model\Product;
 use Scaleflex\Filerobot\Model\FilerobotConfig;
-use Scaleflex\Filerobot\Model\Product\Gallery\CreateHandlerOverride;
 use Magento\Catalog\Model\Product\Media\Config;
 use Magento\Catalog\Model\ResourceModel\Product\Gallery;
 use Magento\Eav\Model\ResourceModel\AttributeValue;
@@ -18,7 +17,7 @@ use Magento\MediaStorage\Helper\File\Storage\Database;
 use Magento\Store\Model\Store;
 use Magento\Store\Model\StoreManagerInterface;
 
-class UpdateHandlerOverride extends CreateHandlerOverride
+class UpdateHandler extends CreateHandler
 {
     /**
      * @var AttributeValue
