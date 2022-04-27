@@ -6,6 +6,4 @@
                    type="Scaleflex\Filerobot\Model\Product\Gallery\UpdateHandler" />
        <preference for="Magento\Catalog\Ui\Component\Listing\Columns\Thumbnail"
                    type="Scaleflex\Filerobot\Ui\Component\Listing\Columns\Thumbnail" />
-       <preference for="Magento\CatalogStaging\Model\Product\Gallery\CreateHandler"
-                   type="Scaleflex\Filerobot\Model\Product\Gallery\Staging\CreateHandler" />
 </config>
