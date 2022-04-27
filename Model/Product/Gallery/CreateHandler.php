@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Scaleflex\Filerobot\Model\Product\Gallery;
 
@@ -9,8 +10,9 @@ use Magento\Framework\App\ObjectManager;
 use Magento\MediaStorage\Model\File\Uploader as FileUploader;
 use Magento\Store\Model\Store;
 use Magento\Store\Model\StoreManagerInterface;
-use Scaleflex\Filerobot\Model\FilerobotConfig;
 use Magento\Catalog\Model\Product\Gallery\CreateHandler as BaseCreateHandler;
+use Scaleflex\Filerobot\Model\FilerobotConfig;
+
 
 class CreateHandler extends BaseCreateHandler
 {
@@ -79,6 +81,9 @@ class CreateHandler extends BaseCreateHandler
      */
     private $storeManager;
 
+
+    protected $filerobotConfig;
+
     /**
      * @var string[]
      */
@@ -87,12 +92,6 @@ class CreateHandler extends BaseCreateHandler
         'small_image',
         'thumbnail'
     ];
-
-
-    /**
-     * @var FilerobotConfig
-     */
-    protected $fileRobotConfig;
 
     /**
      * @param \Magento\Framework\EntityManager\MetadataPool $metadataPool
@@ -106,16 +105,17 @@ class CreateHandler extends BaseCreateHandler
      * @throws \Magento\Framework\Exception\FileSystemException
      */
     public function __construct(
-        \Magento\Framework\EntityManager\MetadataPool            $metadataPool,
+        \Magento\Framework\EntityManager\MetadataPool $metadataPool,
         \Magento\Catalog\Api\ProductAttributeRepositoryInterface $attributeRepository,
-        \Magento\Catalog\Model\ResourceModel\Product\Gallery     $resourceModel,
-        \Magento\Framework\Json\Helper\Data                      $jsonHelper,
-        \Magento\Catalog\Model\Product\Media\Config              $mediaConfig,
-        \Magento\Framework\Filesystem                            $filesystem,
-        \Magento\MediaStorage\Helper\File\Storage\Database       $fileStorageDb,
-        FilerobotConfig                                          $fileRobotConfig,
-        \Magento\Store\Model\StoreManagerInterface               $storeManager = null
+        \Magento\Catalog\Model\ResourceModel\Product\Gallery $resourceModel,
+        \Magento\Framework\Json\Helper\Data $jsonHelper,
+        \Magento\Catalog\Model\Product\Media\Config $mediaConfig,
+        \Magento\Framework\Filesystem $filesystem,
+        \Magento\MediaStorage\Helper\File\Storage\Database $fileStorageDb,
+        FilerobotConfig $filerobotConfig,
+        \Magento\Store\Model\StoreManagerInterface $storeManager = null
     ) {
+        $this->filerobotConfig = $filerobotConfig;
         $this->metadata = $metadataPool->getMetadata(\Magento\Catalog\Api\Data\ProductInterface::class);
         $this->attributeRepository = $attributeRepository;
         $this->resourceModel = $resourceModel;
@@ -124,7 +124,6 @@ class CreateHandler extends BaseCreateHandler
         $this->mediaDirectory = $filesystem->getDirectoryWrite(DirectoryList::MEDIA);
         $this->fileStorageDb = $fileStorageDb;
         $this->storeManager = $storeManager ?: ObjectManager::getInstance()->get(StoreManagerInterface::class);
-        $this->fileRobotConfig = $fileRobotConfig;
     }
 
     /**
@@ -171,8 +170,7 @@ class CreateHandler extends BaseCreateHandler
                     $clearImages[] = $image['file'];
                 } elseif (empty($image['value_id']) || !empty($image['recreate'])) {
 
-                    // Scaleflex handler
-                    if ($this->fileRobotConfig->isFilerobot($image['file'])) {
+                    if ($this->filerobotConfig->isFilerobot($image['file'])) {
                         $newFile = $image['file'];
                     } else {
                         $newFile = $this->moveImageFromTmp($image['file']);
@@ -270,48 +268,27 @@ class CreateHandler extends BaseCreateHandler
     {
         foreach ($images as &$image) {
             if (empty($image['removed'])) {
-                $isNew = empty($image['value_id']);
                 $data = $this->processNewImage($product, $image);
 
+                if (!$product->isObjectNew()) {
+                    $this->resourceModel->deleteGalleryValueInStore(
+                        $image['value_id'],
+                        $product->getData($this->metadata->getLinkField()),
+                        $product->getStoreId()
+                    );
+                }
                 // Add per store labels, position, disabled
                 $data['value_id'] = $image['value_id'];
                 $data['label'] = isset($image['label']) ? $image['label'] : '';
-                $data['position'] = isset($image['position']) && $image['position'] !== ''
-                    ? (int)$image['position']
-                    : null;
+                $data['position'] = isset($image['position']) ? (int)$image['position'] : 0;
                 $data['disabled'] = isset($image['disabled']) ? (int)$image['disabled'] : 0;
                 $data['store_id'] = (int)$product->getStoreId();
 
                 $data[$this->metadata->getLinkField()] = (int)$product->getData($this->metadata->getLinkField());
 
-                $this->saveGalleryStoreValue($product, $data);
-                if ($isNew && $data['store_id'] !== Store::DEFAULT_STORE_ID) {
-                    $dataForDefaultScope = $data;
-                    $dataForDefaultScope['store_id'] = Store::DEFAULT_STORE_ID;
-                    $dataForDefaultScope['disabled'] = 0;
-                    $dataForDefaultScope['label'] = null;
-                    $this->saveGalleryStoreValue($product, $dataForDefaultScope);
-                }
+                $this->resourceModel->insertGalleryValueInStore($data);
             }
         }
-    }
-
-    /**
-     * Save media gallery store value
-     *
-     * @param Product $product
-     * @param array $data
-     */
-    private function saveGalleryStoreValue(Product $product, array $data): void
-    {
-        if (!$product->isObjectNew()) {
-            $this->resourceModel->deleteGalleryValueInStore(
-                $data['value_id'],
-                $data[$this->metadata->getLinkField()],
-                $data['store_id']
-            );
-        }
-        $this->resourceModel->insertGalleryValueInStore($data);
     }
 
     /**
@@ -347,7 +324,7 @@ class CreateHandler extends BaseCreateHandler
      * Duplicate attribute
      *
      * @param \Magento\Catalog\Model\Product $product
-     * @return \Magento\Catalog\Model\Product\Gallery\CreateHandler
+     * @return $this
      * @since 101.0.0
      */
     protected function duplicate($product)
@@ -515,12 +492,11 @@ class CreateHandler extends BaseCreateHandler
      */
     private function processMediaAttribute(
         Product $product,
-        string  $mediaAttrCode,
-        array   $clearImages,
-        array   $newImages
-    ): void
-    {
-        $storeId = $product->isObjectNew() ? Store::DEFAULT_STORE_ID : (int)$product->getStoreId();
+        string $mediaAttrCode,
+        array $clearImages,
+        array $newImages
+    ): void {
+        $storeId = $product->isObjectNew() ? Store::DEFAULT_STORE_ID : (int) $product->getStoreId();
         /***
          * Attributes values are saved as default value in single store mode
          * @see \Magento\Catalog\Model\ResourceModel\AbstractResource::_saveAttributeValue
@@ -557,12 +533,11 @@ class CreateHandler extends BaseCreateHandler
      */
     private function processMediaAttributeLabel(
         Product $product,
-        string  $mediaAttrCode,
-        array   $clearImages,
-        array   $newImages,
-        array   $existImages
-    ): void
-    {
+        string $mediaAttrCode,
+        array $clearImages,
+        array $newImages,
+        array $existImages
+    ): void {
         $resetLabel = false;
         $attrData = $product->getData($mediaAttrCode);
         if (in_array($attrData, $clearImages)) {
@@ -601,7 +576,7 @@ class CreateHandler extends BaseCreateHandler
      */
     private function getImagesForAllStores(ProductInterface $product)
     {
-        if ($this->imagesGallery === null) {
+        if ($this->imagesGallery ===  null) {
             $storeIds = array_keys($this->storeManager->getStores());
             $storeIds[] = 0;
 
@@ -618,26 +593,15 @@ class CreateHandler extends BaseCreateHandler
      * @param string $imageFile
      * @return bool
      */
-    private function canRemoveImage(ProductInterface $product, string $imageFile): bool
+    private function canRemoveImage(ProductInterface $product, string $imageFile) :bool
     {
         $canRemoveImage = true;
         $gallery = $this->getImagesForAllStores($product);
         $storeId = $product->getStoreId();
-        $storeIds = [];
-        $storeIds[] = 0;
-        $websiteIds = array_map('intval', $product->getWebsiteIds() ?? []);
-        foreach ($this->storeManager->getStores() as $store) {
-            if (in_array((int)$store->getWebsiteId(), $websiteIds, true)) {
-                $storeIds[] = (int)$store->getId();
-            }
-        }
 
         if (!empty($gallery)) {
             foreach ($gallery as $image) {
-                if (in_array((int)$image['store_id'], $storeIds)
-                    && $image['filepath'] === $imageFile
-                    && (int)$image['store_id'] !== $storeId
-                ) {
+                if ($image['filepath'] === $imageFile && (int) $image['store_id'] !== $storeId) {
                     $canRemoveImage = false;
                 }
             }
@@ -657,7 +621,7 @@ class CreateHandler extends BaseCreateHandler
     private function getMediaAttributeStoreValue(Product $product, string $attributeCode, int $storeId = null): ?string
     {
         $gallery = $this->getImagesForAllStores($product);
-        $storeId = $storeId === null ? (int)$product->getStoreId() : $storeId;
+        $storeId = $storeId === null ? (int) $product->getStoreId() : $storeId;
         foreach ($gallery as $image) {
             if ($image['attribute_code'] === $attributeCode && ((int)$image['store_id']) === $storeId) {
                 return $image['filepath'];
@@ -676,11 +640,10 @@ class CreateHandler extends BaseCreateHandler
      */
     private function processMediaAttributes(
         Product $product,
-        array   $existImages,
-        array   $newImages,
-        array   $clearImages
-    ): void
-    {
+        array $existImages,
+        array $newImages,
+        array $clearImages
+    ): void {
         foreach ($this->getMediaAttributeCodes() as $mediaAttrCode) {
             $this->processMediaAttribute(
                 $product,
@@ -700,4 +663,3 @@ class CreateHandler extends BaseCreateHandler
         }
     }
 }
-

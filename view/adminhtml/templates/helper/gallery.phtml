@@ -1,26 +1,20 @@
 <?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
 
-// phpcs:disable PHPCompatibility.Miscellaneous.RemovedAlternativePHPTags.MaybeASPOpenTagFound
-/** @var $block \Scaleflex\Filerobot\Block\Adminhtml\Product\Helper\Form\Gallery\Content */
-/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+/** @var $block \Magento\Catalog\Block\Adminhtml\Product\Helper\Form\Gallery\Content */
 $elementName = $block->getElement()->getName() . '[images]';
 $formName = $block->getFormName();
-/** @var \Magento\Framework\Json\Helper\Data $jsonHelper */
-$jsonHelper = $block->getData('jsonHelper');
 ?>
-
-<div id="<?= $block->getHtmlId() ?>"
+<div id="<?= /* @noEscape */ $block->getHtmlId() ?>"
      class="gallery"
-     data-mage-init='{"productGallery":{"template":"#<?= $block->getHtmlId() ?>-template"}}'
-     data-parent-component="<?= $block->escapeHtml($block->getData('config/parentComponent')) ?>"
-     data-images="<?= $block->escapeHtml($block->getImagesJson()) ?>"
-     data-types="<?= $block->escapeHtml($jsonHelper->jsonEncode($block->getImageTypes())) ?>"
+     data-mage-init='{"productGallery":{"template":"#<?= /* @noEscape */ $block->getHtmlId() ?>-template"}}'
+     data-parent-component="<?= $block->escapeHtmlAttr($block->getData('config/parentComponent')) ?>"
+     data-images="<?= $block->escapeHtmlAttr($block->getImagesJson()) ?>"
+     data-types="<?= $block->escapeHtmlAttr(
+         $this->helper(Magento\Framework\Json\Helper\Data::class)->jsonEncode($block->getImageTypes())
+     ) ?>"
 >
-    <?php if (!$block->getElement()->getReadonly()) { ?>
+    <?php if (!$block->getElement()->getReadonly()) {?>
         <div id="filerobot-file-manager">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                  stroke="currentColor" stroke-width="2">
@@ -43,7 +37,7 @@ $jsonHelper = $block->getData('jsonHelper');
         <?php
     } ?>
 
-    <script id="<?= $block->getHtmlId() ?>-template" type="text/x-magento-template">
+    <script id="<?= /* @noEscape */ $block->getHtmlId() ?>-template" type="text/x-magento-template">
         <div class="image item<% if (data.disabled == 1) { %> hidden-for-front<% } %>"
              data-role="image">
             <input type="hidden"
@@ -127,7 +121,7 @@ $jsonHelper = $block->getData('jsonHelper');
 
     <script data-role="img-dialog-tmpl" type="text/x-magento-template">
         <div class="image-panel-preview">
-            <img src="<%- data.url %>" alt="<%- data.label %>"/>
+            <img src="<%- data.url %>" alt="<%- data.label %>" />
         </div>
         <div class="image-panel-controls">
             <strong class="image-name"><%- data.label %></strong>
@@ -142,9 +136,7 @@ $jsonHelper = $block->getData('jsonHelper');
                             <textarea data-role="image-description"
                                       rows="3"
                                       class="admin__control-textarea"
-                                      name="<?= $block->escapeHtmlAttr($elementName)
-                                      ?>[<%- data.file_id %>][label]"><%- data.label %>
-                            </textarea>
+                                      name="<?= $block->escapeHtmlAttr($elementName) ?>[<%- data.file_id %>][label]"><%- data.label %></textarea>
                     </div>
                 </div>
 
@@ -155,7 +147,7 @@ $jsonHelper = $block->getData('jsonHelper');
                     <div class="admin__field-control">
                         <ul class="multiselect-alt">
                             <?php
-                            foreach ($block->getMediaAttributes() as $attribute):
+                            foreach ($block->getMediaAttributes() as $attribute) :
                                 ?>
                                 <li class="item">
                                     <label>
@@ -188,8 +180,7 @@ $jsonHelper = $block->getData('jsonHelper');
                     <label class="admin__field-label">
                         <span><?= $block->escapeHtml(__('Image Resolution')) ?></span>
                     </label>
-                    <div class="admin__field-value"
-                         data-message="<?= $block->escapeHtmlAttr(__('{width}^{height} px')) ?>"></div>
+                    <div class="admin__field-value" data-message="<?= $block->escapeHtmlAttr(__('{width}^{height} px')) ?>"></div>
                 </div>
 
                 <div class="admin__field field-image-hide">
@@ -215,8 +206,9 @@ $jsonHelper = $block->getData('jsonHelper');
     </script>
     <?= $block->getChildHtml('new-video') ?>
 </div>
-<?= /* @noEscape */
-$secureRenderer->renderTag('script', [], "jQuery('body').trigger('contentUpdated');", false) ?>
+<script>
+    jQuery('body').trigger('contentUpdated');
+</script>
 <script type="text/javascript">
     require(["jquery", "Magento_Ui/js/modal/modal"], function (jQuery, modal) {
         const container = '<?php echo $block->getConfig()->getToken(); ?>';
