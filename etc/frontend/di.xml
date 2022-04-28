@@ -20,6 +20,8 @@
           <plugin name="product_image_checkout_cart" type="Scaleflex\Filerobot\Plugin\Checkout\Image" sortOrder="1"/>
       </type>
       <type name="Magento\Catalog\Block\Product\ImageBuilder">
-                <plugin name="after_imagebuilder_create" type="Scaleflex\Filerobot\Plugin\Product\AfterBuildImage" sortOrder="1"/>
-            </type>
+           <plugin name="after_imagebuilder_create" type="Scaleflex\Filerobot\Plugin\Product\AfterBuildImage" sortOrder="1"/>
+      </type>
+      <preference for="Magento\Catalog\Block\Product\ImageFactory"
+                  type="Scaleflex\Filerobot\Block\Product\ImageFactory" />
 </config>
