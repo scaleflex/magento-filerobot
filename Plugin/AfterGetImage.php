@@ -45,6 +45,7 @@ class AfterGetImage
      */
     public function afterGetImage(AbstractProduct $subject, $result, $product, $imageId, $attributes)
     {
+
         try {
             if ($product) {
                 $images = $product->getMediaAttributeValues();
@@ -55,11 +56,11 @@ class AfterGetImage
                         $image['width'] = $imageSize->getWidth();
                         $image['height'] = $imageSize->getHeight();
                         $image['image_url'] = $this->filerobotHelper->buildImageBySize($images['image'], $imageSize->getHeight(), $imageSize->getHeight());
-                        $image['ratio'] = "1.25";
+                        $image['ratio'] = "0.1";
                         $image['label'] = $product->getName();
-                        $image['custom_attributes'] = [];
+                        $image['custom_attributes'] = '';
                         $image['product_id'] = $product->getId();
-                        if ($image) {
+                        if (!empty($image)) {
                             $result->setData($image);
                         }
                     } else {
