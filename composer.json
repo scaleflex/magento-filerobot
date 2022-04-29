@@ -1,6 +1,6 @@
 {
-    "name": "scaleflex/module-filerobot",
-    "description": "Scaleflex Filerobot Magento Extension",
+    "name": "scaleflex/module-filerobot-enterprise",
+    "description": "Scaleflex Filerobot Magento Enterprise Extension",
     "type": "magento2-module",
     "license": "GPL-3.0",
     "authors": [
