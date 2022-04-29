@@ -25,7 +25,7 @@ define(['uiComponent'], function (Component) {
 
         getQuoteItem: function (item) {
             const item_id = item['item_id'];
-            return this.quoteItemData.find((quoteItem) => quoteItem['item_id'] === item_id);
+            return this.quoteItemData.find((quoteItem) => String(quoteItem['item_id']) === String(item_id));
         },
 
         /**
