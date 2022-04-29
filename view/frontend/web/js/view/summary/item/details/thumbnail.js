@@ -34,8 +34,8 @@ define(['uiComponent'], function (Component) {
          */
         getSrc: function (item) {
             const quoteItem = this.getQuoteItem(item);
-            if (quoteItem['product']['thumbnail'].includes('filerobot')) {
-                return quoteItem['product']['thumbnail'];
+            if (quoteItem?.product?.thumbnail?.includes('filerobot')) {
+                return quoteItem?.product?.thumbnail;
             } else if (this.imageData[item['item_id']]) {
                 return this.imageData[item['item_id']].src;
             }
