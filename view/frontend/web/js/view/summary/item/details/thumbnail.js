@@ -25,7 +25,7 @@ define(['uiComponent'], function (Component) {
 
         getQuoteItem: function (item) {
             const item_id = item['item_id'];
-            return this.quoteItemData.find((quoteItem) => quoteItem['item_id'] === item_id);
+            return this.quoteItemData.find((quoteItem) => quoteItem['item_id'] === String(item_id));
         },
 
         /**
@@ -35,7 +35,7 @@ define(['uiComponent'], function (Component) {
         getSrc: function (item) {
             const quoteItem = this.getQuoteItem(item);
             if (quoteItem['product']['thumbnail'].includes('filerobot')) {
-                return quoteItem['product']['thumbnail'];
+                return quoteItem?.product?.thumbnail;
             } else if (this.imageData[item['item_id']]) {
                 return this.imageData[item['item_id']].src;
             }
