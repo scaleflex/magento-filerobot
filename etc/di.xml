@@ -1,9 +1,13 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
        <preference for="Magento\Catalog\Model\Product\Gallery\CreateHandler"
-                    type="Scaleflex\Filerobot\Model\Product\Gallery\CreateHandlerOverride" />
+                    type="Scaleflex\Filerobot\Model\Product\Gallery\CreateHandler" />
        <preference for="Magento\Catalog\Model\Product\Gallery\UpdateHandler"
-                   type="Scaleflex\Filerobot\Model\Product\Gallery\UpdateHandlerOverride" />
+                   type="Scaleflex\Filerobot\Model\Product\Gallery\UpdateHandler" />
        <preference for="Magento\Catalog\Ui\Component\Listing\Columns\Thumbnail"
                    type="Scaleflex\Filerobot\Ui\Component\Listing\Columns\Thumbnail" />
+       <preference for="Magento\CatalogStaging\Model\Product\Gallery\CreateHandler"
+                   type="Scaleflex\Filerobot\Model\Product\Gallery\Staging\CreateHandler" />
+       <preference for="Magento\CatalogStaging\Model\Product\Gallery\UpdateHandler"
+                   type="Scaleflex\Filerobot\Model\Product\Gallery\Staging\UpdateHandler" />
 </config>

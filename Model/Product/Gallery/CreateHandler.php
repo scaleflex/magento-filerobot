@@ -6,13 +6,13 @@ use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Model\Product;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\ObjectManager;
-use Magento\Framework\EntityManager\Operation\ExtensionInterface;
 use Magento\MediaStorage\Model\File\Uploader as FileUploader;
 use Magento\Store\Model\Store;
 use Magento\Store\Model\StoreManagerInterface;
 use Scaleflex\Filerobot\Model\FilerobotConfig;
+use Magento\Catalog\Model\Product\Gallery\CreateHandler as BaseCreateHandler;
 
-class CreateHandlerOverride implements ExtensionInterface
+class CreateHandler extends BaseCreateHandler
 {
     /**
      * @var \Magento\Framework\EntityManager\EntityMetadata
