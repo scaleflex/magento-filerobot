@@ -38,19 +38,21 @@ class Related
     ) {
         foreach ($result as $key => $value) {
             if ($key !== 'config') {
-                $links = $value['links'];
-                foreach ($links as &$link) {
-                    if (!empty($link)) {
-                        foreach ($link as &$linked) {
-                            $product = $this->productRepository->getById($linked['id']);
-                            $images = $product->getMediaAttributeValues();
-                            if (!empty($images) && $images['thumbnail'] && $this->fileRobotConfig->isFilerobot($images['thumbnail'])) {
-                                $linked['thumbnail'] = $images['thumbnail'];
+                if (array_key_exists('links', $value)) {
+                    $links = $value['links'];
+                    foreach ($links as &$link) {
+                        if (!empty($link)) {
+                            foreach ($link as &$linked) {
+                                $product = $this->productRepository->getById($linked['id']);
+                                $images = $product->getMediaAttributeValues();
+                                if (!empty($images) && $images['thumbnail'] && $this->fileRobotConfig->isFilerobot($images['thumbnail'])) {
+                                    $linked['thumbnail'] = $images['thumbnail'];
+                                }
                             }
                         }
                     }
+                    $result[$key]['links'] = $links;
                 }
-                $result[$key]['links'] = $links;
             }
         }
 
