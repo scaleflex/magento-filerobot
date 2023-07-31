@@ -2,7 +2,7 @@
 /** @var \Scaleflex\Filerobot\Block\Adminhtml\Firerobot $block */
 ?>
 <link rel="stylesheet" type="text/css"
-      href="https://cdn.scaleflex.it/plugins/filerobot-widget/2.9.5/filerobot-widget.min.css?func=proxy"/>
+      href="https://scaleflex.cloudimg.io/v7/plugins/filerobot-widget/stable/filerobot-widget.min.css"/>
 
 <button style="display: none" id="file-robot-modal-btn"></button>
 <div id="modal-content">
@@ -11,7 +11,7 @@
 <script type="text/javascript">
     require.config({
         paths: {
-            filerobot: 'https://cdn.scaleflex.it/plugins/filerobot-widget/2.9.5/filerobot-widget.min.js?func=proxy'
+            filerobot: 'https://scaleflex.cloudimg.io/v7/plugins/filerobot-widget/stable/filerobot-widget.min'
         }
     });
     require(["jquery", "Magento_Ui/js/modal/modal", "filerobot"], function (jQuery, modal, filerobot, _) {

@@ -3,6 +3,7 @@
         <policy id="script-src">
             <values>
                 <value id="scaleflex-script" type="host">*.scaleflex.it</value>
+                <value id="scaleflex-script" type="host">*.cloudimg.io</value>
             </values>
         </policy>
         <policy id="style-src">
