@@ -183,7 +183,7 @@ class Content extends \Magento\Backend\Block\Widget
                     $image['url'] = $image['file'];
                     $url = parse_url($image['url']);
                     parse_str($url['query'], $query);
-                    $image['size'] = $query['size'];
+                    $image['size'] = $query['p'];
                 } else {
                     $image['url'] = $this->_mediaConfig->getMediaUrl($image['file']);
                     if ($this->fileStorageDatabase->checkDbUsage() &&

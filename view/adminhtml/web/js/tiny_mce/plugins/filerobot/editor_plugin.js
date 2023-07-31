@@ -7,17 +7,30 @@ define([
          * @param {string} url Absolute URL to where the plugin is located.
          */
         init: function (ed, url) {
-            var t = this;
+            const t = this;
             t.editor = ed;
             ed.contentCSS = ['filerobot'];
 
-            ed.addCommand('mceFileRobotModal', t._showFirerobotModal, t);
+            ed.addCommand('mceFileRobotModal', t._showFilerobotModal, t);
 
-            ed.addButton('filerobot', {
-                title: 'Filerobot DAM Widget',
-                cmd: 'mceFileRobotModal',
-                image: url + '/img/icon.svg'
-            });
+            if (ed.editorManager.majorVersion === '5') {
+                ed.ui.registry.addButton('filerobot', {
+                    title: 'Filerobot DAM Widget',
+                    cmd: 'mceFileRobotModal',
+                    image: url + '/img/icon.svg',
+                    onAction: function() {
+                        window.fileRobotActiveEditor = ed;
+                        $("#file-robot-modal-btn").trigger('click')
+                    }
+                });
+            } else {
+                ed.addButton('filerobot', {
+                    title: 'Filerobot DAM Widget',
+                    cmd: 'mceFileRobotModal',
+                    image: url + '/img/icon.svg'
+                });
+            }
+
 
             ed.on('ObjectResizeStart', function (e) {
                 window.activeObject = e;
@@ -37,11 +50,17 @@ define([
                     const src = object.attr('src');
 
                     // Update src URL
-                    let newSrc = src.replace(oldWidth, newWidth);
-                    newSrc = newSrc.replace(oldHeight, newHeight);
+                    let newSrc = src.replace(oldWidth, newWidth).replace(oldHeight, newHeight);
 
                     // Update image url after resized
-                    let content = ed.getContent();
+                    let content = "";
+
+                    if (ed.editorManager.majorVersion === '5') {
+                        content = ed.getContent({ format: 'html' })
+                    } else {
+                        content = ed.getContent()
+                    }
+
                     content = content.replaceAll('&amp;', '&');
                     content = content.replace(src, newSrc);
                     ed.setContent(content);
@@ -61,8 +80,8 @@ define([
             };
         },
 
-        _showFirerobotModal: function () {
-            var ed = this.editor;
+        _showFilerobotModal: function () {
+            const ed = this.editor;
             window.fileRobotActiveEditor = ed;
             $("#file-robot-modal-btn").trigger('click')
         }
