@@ -63,7 +63,6 @@
                 .use(XHRUpload)
                 .on('export', function (files, popupExportSuccessMsgFn, downloadFilesPackagedFn, downloadFileFn) {
                     files.forEach((selected, key) => {
-                        console.log(selected)
                         let link = selected.file.url.cdn;
 
                         let url = new URL(link);
