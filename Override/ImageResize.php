@@ -280,6 +280,8 @@ class ImageResize extends ParentImageResize
         return $viewImages;
     }
 
+
+
     /**
      * Get unique image index.
      *
@@ -291,7 +293,7 @@ class ImageResize extends ParentImageResize
         ksort($imageData);
         unset($imageData['type']);
         // phpcs:disable Magento2.Security.InsecureFunction
-        return md5(json_encode($imageData));
+        return hash('sha256', json_encode($imageData));
     }
 
     /**
