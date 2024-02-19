@@ -18,7 +18,7 @@ define([
                     title: 'Filerobot DAM Widget',
                     cmd: 'mceFileRobotModal',
                     image: url + '/img/icon.svg',
-                    onAction: function() {
+                    onAction: function () {
                         window.fileRobotActiveEditor = ed;
                         $("#file-robot-modal-btn").trigger('click')
                     }
@@ -56,7 +56,7 @@ define([
                     let content = "";
 
                     if (ed.editorManager.majorVersion === '5') {
-                        content = ed.getContent({ format: 'html' })
+                        content = ed.getContent({format: 'html'})
                     } else {
                         content = ed.getContent()
                     }

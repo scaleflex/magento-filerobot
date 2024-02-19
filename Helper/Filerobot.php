@@ -22,9 +22,9 @@ class Filerobot
      * @param ProductImageHelper $imageHelper
      */
     public function __construct(
-        ProductRepositoryInterface      $productRepository,
-        FilerobotConfig                 $filerobotConfig,
-        ProductImageHelper              $imageHelper
+        ProductRepositoryInterface $productRepository,
+        FilerobotConfig            $filerobotConfig,
+        ProductImageHelper         $imageHelper
     )
     {
         $this->productRepositoty = $productRepository;
@@ -64,11 +64,11 @@ class Filerobot
      */
     public function buildImageBySize($url, $width, $height)
     {
-        $url             = parse_url($url);
+        $url = parse_url($url);
         parse_str($url['query'], $query);
-        $query['width']  = $width;
+        $query['width'] = $width;
         $query['height'] = $height;
-        $url['query']    = http_build_query($query);
-        return  $url['scheme'].'://'.$url['host'].$url['path'].'?'.$url['query'];
+        $url['query'] = http_build_query($query);
+        return $url['scheme'] . '://' . $url['host'] . $url['path'] . '?' . $url['query'];
     }
 }

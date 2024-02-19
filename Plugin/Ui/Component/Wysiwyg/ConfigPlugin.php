@@ -35,11 +35,12 @@ class ConfigPlugin
      * @param null $activeEditor
      */
     public function __construct(
-        FilerobotConfig $fileRobotConfig,
-        $activeEditor = null,
-        RequestInterface $request = null,
+        FilerobotConfig      $fileRobotConfig,
+                             $activeEditor = null,
+        RequestInterface     $request = null,
         ScopeConfigInterface $scopeConfig = null
-    ) {
+    )
+    {
         try {
             if (class_exists(\Magento\Ui\Block\Wysiwyg\ActiveEditor::class)) {
                 $this->activeEditor = $activeEditor
@@ -64,7 +65,8 @@ class ConfigPlugin
     public function beforeGetConfig(
         \Magento\Ui\Component\Wysiwyg\ConfigInterface $configInterface,
                                                       $data = []
-    ) {
+    )
+    {
         if (!$this->activeEditor) {
             return [$data];
         }

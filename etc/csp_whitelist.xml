@@ -1,4 +1,5 @@
-<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp/etc/csp_whitelist.xsd">
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp/etc/csp_whitelist.xsd">
     <policies>
         <policy id="script-src">
             <values>
@@ -7,27 +8,27 @@
             </values>
         </policy>
         <policy id="style-src">
-             <values>
+            <values>
                 <value id="scaleflex-style" type="host">*.scaleflex.it</value>
-             </values>
-         </policy>
-         <policy id="font-src">
-            <values>
-                 <value id="scaleflex-font" type="host">*.scaleflex.it</value>
             </values>
-         </policy>
-         <policy id="img-src">
+        </policy>
+        <policy id="font-src">
             <values>
-                 <value id="filerobot-img" type="host">*.filerobot.com</value>
-                 <value id="clouldimgage" type="host">*.cloudimg.io</value>
-                 <value id="flaticon" type="host">*.flaticon.com</value>
+                <value id="scaleflex-font" type="host">*.scaleflex.it</value>
             </values>
-         </policy>
-         <policy id="connect-src">
+        </policy>
+        <policy id="img-src">
             <values>
-                 <value id="ultrafast" type="host">*.ultrafast.io</value>
-                 <value id="filerobot-connect" type="host">*.filerobot.com</value>
-           </values>
+                <value id="filerobot-img" type="host">*.filerobot.com</value>
+                <value id="clouldimgage" type="host">*.cloudimg.io</value>
+                <value id="flaticon" type="host">*.flaticon.com</value>
+            </values>
+        </policy>
+        <policy id="connect-src">
+            <values>
+                <value id="ultrafast" type="host">*.ultrafast.io</value>
+                <value id="filerobot-connect" type="host">*.filerobot.com</value>
+            </values>
         </policy>
     </policies>
 </csp_whitelist>

@@ -26,7 +26,8 @@ class Button extends Field
         Context         $context,
         FilerobotConfig $fileRobotConfig,
         array           $data = []
-    ) {
+    )
+    {
         parent::__construct($context, $data);
         $this->fileRobotConfig = $fileRobotConfig;
     }

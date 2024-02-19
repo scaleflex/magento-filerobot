@@ -19,8 +19,9 @@ class Firerobot extends Template
      */
     public function __construct(
         Template\Context $context,
-        FilerobotConfig $fileRobotConfig
-    ) {
+        FilerobotConfig  $fileRobotConfig
+    )
+    {
         parent::__construct($context);
         $this->fileRobotConfig = $fileRobotConfig;
     }

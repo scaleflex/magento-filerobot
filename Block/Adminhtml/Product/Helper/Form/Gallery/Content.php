@@ -59,14 +59,15 @@ class Content extends \Magento\Backend\Block\Widget
      * @param JsonHelper|null $jsonHelper
      */
     public function __construct(
-        \Magento\Backend\Block\Template\Context $context,
-        \Magento\Framework\Json\EncoderInterface $jsonEncoder,
+        \Magento\Backend\Block\Template\Context     $context,
+        \Magento\Framework\Json\EncoderInterface    $jsonEncoder,
         \Magento\Catalog\Model\Product\Media\Config $mediaConfig,
-        FileRobotConfig $fileRobotConfig,
-        ImageUploadConfigDataProvider $imageUploadConfigDataProvider = null,
-        Database $fileStorageDatabase = null,
-        ?JsonHelper $jsonHelper = null
-    ) {
+        FileRobotConfig                             $fileRobotConfig,
+        ImageUploadConfigDataProvider               $imageUploadConfigDataProvider = null,
+        Database                                    $fileStorageDatabase = null,
+        ?JsonHelper                                 $jsonHelper = null
+    )
+    {
         $this->fileRobotConfig = $fileRobotConfig;
         $this->_jsonEncoder = $jsonEncoder;
         $this->_mediaConfig = $mediaConfig;

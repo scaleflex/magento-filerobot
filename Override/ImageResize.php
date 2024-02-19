@@ -110,19 +110,20 @@ class ImageResize extends ParentImageResize
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function __construct(
-        State $appState,
-        MediaConfig $imageConfig,
-        ProductImage $productImage,
-        ImageFactory $imageFactory,
-        ParamsBuilder $paramsBuilder,
-        ViewConfig $viewConfig,
-        AssertImageFactory $assertImageFactory,
+        State                    $appState,
+        MediaConfig              $imageConfig,
+        ProductImage             $productImage,
+        ImageFactory             $imageFactory,
+        ParamsBuilder            $paramsBuilder,
+        ViewConfig               $viewConfig,
+        AssertImageFactory       $assertImageFactory,
         ThemeCustomizationConfig $themeCustomizationConfig,
-        ThemeCollection $themeCollection,
-        Filesystem $filesystem,
-        FileStorageDatabase $fileStorageDatabase = null,
-        StoreManagerInterface $storeManager = null
-    ) {
+        ThemeCollection          $themeCollection,
+        Filesystem               $filesystem,
+        FileStorageDatabase      $fileStorageDatabase = null,
+        StoreManagerInterface    $storeManager = null
+    )
+    {
         $this->appState = $appState;
         $this->imageConfig = $imageConfig;
         $this->productImage = $productImage;
@@ -270,7 +271,7 @@ class ImageResize extends ParentImageResize
             $images = $config->getMediaEntities('Magento_Catalog', ImageHelper::MEDIA_TYPE_CONFIG_NODE);
             foreach ($images as $imageId => $imageData) {
                 foreach ($stores as $store) {
-                    $data = $this->paramsBuilder->build($imageData, (int) $store->getId());
+                    $data = $this->paramsBuilder->build($imageData, (int)$store->getId());
                     $uniqIndex = $this->getUniqueImageIndex($data);
                     $data['id'] = $imageId;
                     $viewImages[$uniqIndex] = $data;
@@ -279,7 +280,6 @@ class ImageResize extends ParentImageResize
         }
         return $viewImages;
     }
-
 
 
     /**
@@ -361,12 +361,13 @@ class ImageResize extends ParentImageResize
      * @param string $mediaStorageFilename
      */
     private function generateResizedImage(
-        array $imageParams,
+        array  $imageParams,
         string $originalImagePath,
         string $imageAssetPath,
-        bool $usingDbAsStorage,
+        bool   $usingDbAsStorage,
         string $mediaStorageFilename
-    ) {
+    )
+    {
         $image = $this->makeImage($originalImagePath, $imageParams);
 
         if ($imageParams['image_width'] !== null && $imageParams['image_height'] !== null) {

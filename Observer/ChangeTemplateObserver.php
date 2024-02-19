@@ -11,7 +11,8 @@ class ChangeTemplateObserver implements ObserverInterface
 
     public function __construct(
         FilerobotConfig $fileRobotConfig
-    ) {
+    )
+    {
         $this->fileRobotConfig = $fileRobotConfig;
     }
 

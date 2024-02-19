@@ -47,7 +47,8 @@ class UpdateHandlerOverride extends CreateHandlerOverride
         Database                            $fileStorageDb,
         StoreManagerInterface               $storeManager = null,
         ?AttributeValue                     $attributeValue = null
-    ) {
+    )
+    {
         parent::__construct(
             $metadataPool,
             $attributeRepository,

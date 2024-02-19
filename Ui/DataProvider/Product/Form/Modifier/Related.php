@@ -20,8 +20,9 @@ class Related
      */
     public function __construct(
         ProductRepositoryInterface $productRepository,
-        FilerobotConfig $fileRobotConfig
-    ) {
+        FilerobotConfig            $fileRobotConfig
+    )
+    {
         $this->productRepository = $productRepository;
         $this->fileRobotConfig = $fileRobotConfig;
     }
@@ -35,7 +36,8 @@ class Related
     public function afterModifyData(
         \Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Related $subject,
                                                                        $result
-    ) {
+    )
+    {
         foreach ($result as $key => $value) {
             if ($key !== 'config') {
                 if (array_key_exists('links', $value)) {

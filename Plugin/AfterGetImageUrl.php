@@ -18,7 +18,8 @@ class AfterGetImageUrl
      */
     public function __construct(
         FilerobotConfig $fileRobotConfig
-    ) {
+    )
+    {
         $this->fileRobotConfig = $fileRobotConfig;
     }
 

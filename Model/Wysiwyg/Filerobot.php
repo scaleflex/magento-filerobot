@@ -23,8 +23,9 @@ class Filerobot
      */
     public function __construct(
         \Magento\Framework\View\Asset\Repository $assetRepo,
-        FilerobotConfig $fileRobotConfig
-    ) {
+        FilerobotConfig                          $fileRobotConfig
+    )
+    {
         $this->fileRobotConfig = $fileRobotConfig;
         $this->assetRepo = $assetRepo;
     }

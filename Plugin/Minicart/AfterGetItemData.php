@@ -10,16 +10,16 @@ use Magento\Catalog\Helper\Image;
 
 class AfterGetItemData
 {
-    /** @var ProductRepositoryInterface  */
+    /** @var ProductRepositoryInterface */
     protected ProductRepositoryInterface $productRepository;
 
-    /** @var FilerobotConfig  */
+    /** @var FilerobotConfig */
     protected FilerobotConfig $fileRobotConfig;
 
-    /** @var Image  */
+    /** @var Image */
     protected $imageHelper;
 
-    /** @var Filerobot  */
+    /** @var Filerobot */
     protected $filerobotHelper;
 
     /**
@@ -30,11 +30,12 @@ class AfterGetItemData
      */
     public function __construct(
         ProductRepositoryInterface $productRepository,
-        FilerobotConfig $fileRobotConfig,
-        Image $imageHelper,
-        Filerobot $filerobotHelper
+        FilerobotConfig            $fileRobotConfig,
+        Image                      $imageHelper,
+        Filerobot                  $filerobotHelper
 
-    ) {
+    )
+    {
         $this->fileRobotConfig = $fileRobotConfig;
         $this->productRepository = $productRepository;
         $this->imageHelper = $imageHelper;
@@ -52,15 +53,16 @@ class AfterGetItemData
         \Magento\Checkout\CustomerData\AbstractItem $subject,
         \Closure                                    $proceed,
         \Magento\Quote\Model\Quote\Item             $item
-    ) {
+    )
+    {
         $data = $proceed($item);
         $product = $this->productRepository->getById($data['product_id']);
         $thumbImageSize = $this->imageHelper->init($product, 'product_thumbnail_image');
         $images = $product->getMediaAttributeValues();
         if (!empty($images) && $images['thumbnail'] && $this->fileRobotConfig->isFilerobot($images['thumbnail'])) {
             $data['product_image']['src'] = $this->filerobotHelper->buildImageBySize($images['thumbnail'],
-                                                                    $thumbImageSize->getWidth(),
-                                                                    $thumbImageSize->getHeight());
+                $thumbImageSize->getWidth(),
+                $thumbImageSize->getHeight());
         }
         return $data;
     }

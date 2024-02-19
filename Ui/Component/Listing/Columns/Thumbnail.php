@@ -18,16 +18,16 @@ class Thumbnail extends \Magento\Ui\Component\Listing\Columns\Column
 
     const ALT_FIELD = 'name';
 
-    /** @var \Magento\Catalog\Helper\Image  */
+    /** @var \Magento\Catalog\Helper\Image */
     private $imageHelper;
 
-    /** @var \Magento\Framework\UrlInterface  */
+    /** @var \Magento\Framework\UrlInterface */
     private $urlBuilder;
 
-    /** @var ProductRepositoryInterface  */
+    /** @var ProductRepositoryInterface */
     private $productRepository;
 
-    /** @var FilerobotConfig  */
+    /** @var FilerobotConfig */
     private $fileRobotConfig;
 
     /**
@@ -47,7 +47,8 @@ class Thumbnail extends \Magento\Ui\Component\Listing\Columns\Column
         FilerobotConfig                 $fileRobotConfig,
         array                           $components = [],
         array                           $data = []
-    ) {
+    )
+    {
         parent::__construct($context, $uiComponentFactory, $components, $data);
         $this->imageHelper = $imageHelper;
         $this->urlBuilder = $urlBuilder;

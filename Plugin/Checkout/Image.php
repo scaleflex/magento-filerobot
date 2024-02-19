@@ -9,16 +9,16 @@ use Magento\Catalog\Helper\Image as ImageHelper;
 
 class Image
 {
-    /** @var ProductRepositoryInterface  */
+    /** @var ProductRepositoryInterface */
     protected ProductRepositoryInterface $productRepository;
 
-    /** @var FilerobotConfig  */
+    /** @var FilerobotConfig */
     protected FilerobotConfig $fileRobotConfig;
 
     /** @var \Magento\Catalog\Helper\Image */
     protected $imageHelper;
 
-    /** @var Filerobot  */
+    /** @var Filerobot */
     protected $filerobotHelper;
 
     /**
@@ -29,11 +29,12 @@ class Image
      */
     public function __construct(
         ProductRepositoryInterface $productRepository,
-        FilerobotConfig $fileRobotConfig,
-        ImageHelper $imageHelper,
-        Filerobot $filerobotHelper
+        FilerobotConfig            $fileRobotConfig,
+        ImageHelper                $imageHelper,
+        Filerobot                  $filerobotHelper
 
-    ) {
+    )
+    {
         $this->fileRobotConfig = $fileRobotConfig;
         $this->productRepository = $productRepository;
         $this->imageHelper = $imageHelper;
@@ -55,8 +56,8 @@ class Image
             $images = $product->getMediaAttributeValues();
             if (!empty($images) && $images['thumbnail'] && $this->fileRobotConfig->isFilerobot($images['thumbnail'])) {
                 $result->setImageUrl($this->filerobotHelper->buildImageBySize($images['thumbnail'],
-                                                            $thumbImageSize->getWidth(),
-                                                            $thumbImageSize->getHeight()));
+                    $thumbImageSize->getWidth(),
+                    $thumbImageSize->getHeight()));
             }
         }
         return $result;

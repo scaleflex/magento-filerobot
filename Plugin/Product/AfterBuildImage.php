@@ -16,7 +16,8 @@ class AfterBuildImage
      */
     public function __construct(
         ProductRepositoryInterface $productRepository
-    ) {
+    )
+    {
         $this->productRepository = $productRepository;
     }
 
@@ -28,7 +29,8 @@ class AfterBuildImage
     public function afterCreate(
         \Magento\Catalog\Block\Product\ImageBuilder $subject,
                                                     $result
-    ) {
+    )
+    {
         return $result;
     }
 }

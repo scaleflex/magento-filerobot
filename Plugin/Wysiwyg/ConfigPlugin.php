@@ -19,7 +19,8 @@ class ConfigPlugin
      */
     public function __construct(
         Filerobot $fileRobot
-    ) {
+    )
+    {
         $this->fileRobot = $fileRobot;
     }
 

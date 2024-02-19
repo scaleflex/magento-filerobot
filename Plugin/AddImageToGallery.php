@@ -10,27 +10,28 @@ use Magento\Catalog\Helper\Image;
 
 class AddImageToGallery
 {
-    /** @var FilerobotConfig  */
+    /** @var FilerobotConfig */
     protected $fileRobotConfig;
 
-    /** @var ProductRepositoryInterface  */
+    /** @var ProductRepositoryInterface */
     protected $productRepository;
 
-    /** @var Image  */
+    /** @var Image */
     protected $imageHelper;
 
-    /** @var Filerobot  */
+    /** @var Filerobot */
     protected $filerobotHelper;
 
     /**
      * @param FilerobotConfig $fileRobotConfig
      */
     public function __construct(
-        FilerobotConfig $fileRobotConfig,
+        FilerobotConfig            $fileRobotConfig,
         ProductRepositoryInterface $productRepository,
-        Image $imageHelper,
-        Filerobot $filerobotHelper
-    ) {
+        Image                      $imageHelper,
+        Filerobot                  $filerobotHelper
+    )
+    {
         $this->fileRobotConfig = $fileRobotConfig;
         $this->productRepository = $productRepository;
         $this->imageHelper = $imageHelper;
@@ -43,7 +44,7 @@ class AddImageToGallery
             if ($this->fileRobotConfig->isFilerobot($image->getData('file'))) {
                 $url = $image->getData('file');
                 $entityId = $image->getData('entity_id') ? $image->getData('entity_id') : $image->getData('row_id');
-                $product  = $this->productRepository->getById($entityId);
+                $product = $this->productRepository->getById($entityId);
                 if ($product) {
                     $thumbImageSize = $this->imageHelper->init($product, 'product_thumbnail_image');
                     $baseImageSize = $this->imageHelper->init($product, 'product_base_image');
@@ -53,7 +54,7 @@ class AddImageToGallery
 
                 $image->setData('url', $url);
                 $image->setData('small_image_url', $thumbnailUrl);
-                $image->setData('medium_image_url',$url);
+                $image->setData('medium_image_url', $url);
                 $image->setData('large_image_url', $url);
             }
         }

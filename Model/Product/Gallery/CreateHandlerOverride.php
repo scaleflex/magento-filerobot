@@ -115,7 +115,8 @@ class CreateHandlerOverride implements ExtensionInterface
         \Magento\MediaStorage\Helper\File\Storage\Database       $fileStorageDb,
         FilerobotConfig                                          $fileRobotConfig,
         \Magento\Store\Model\StoreManagerInterface               $storeManager = null
-    ) {
+    )
+    {
         $this->metadata = $metadataPool->getMetadata(\Magento\Catalog\Api\Data\ProductInterface::class);
         $this->attributeRepository = $attributeRepository;
         $this->resourceModel = $resourceModel;

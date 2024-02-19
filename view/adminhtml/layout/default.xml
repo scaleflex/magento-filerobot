@@ -1,10 +1,11 @@
 <?xml version="1.0"?>
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <update handle="editor"/>
     <body>
         <referenceContainer name="footer">
             <block class="Scaleflex\Filerobot\Block\Adminhtml\Firerobot"
-                   name="firerobot" template="Scaleflex_Filerobot::firerobot.phtml" />
+                   name="firerobot" template="Scaleflex_Filerobot::firerobot.phtml"/>
         </referenceContainer>
     </body>
 </page>

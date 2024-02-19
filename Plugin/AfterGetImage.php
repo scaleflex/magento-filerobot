@@ -10,13 +10,13 @@ use Scaleflex\Filerobot\Model\FilerobotConfig;
 class AfterGetImage
 {
 
-    /** @var Image  */
+    /** @var Image */
     protected $imageHelper;
 
-    /** @var FilerobotConfig  */
+    /** @var FilerobotConfig */
     protected FilerobotConfig $fileRobotConfig;
 
-    /** @var Filerobot  */
+    /** @var Filerobot */
     protected $filerobotHelper;
 
 
@@ -27,9 +27,10 @@ class AfterGetImage
      */
     public function __construct(
         FilerobotConfig $fileRobotConfig,
-        Image $imageHelper,
-        Filerobot $filerobotHelper
-    ) {
+        Image           $imageHelper,
+        Filerobot       $filerobotHelper
+    )
+    {
         $this->imageHelper = $imageHelper;
         $this->fileRobotConfig = $fileRobotConfig;
         $this->filerobotHelper = $filerobotHelper;

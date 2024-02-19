@@ -11,22 +11,23 @@ use Scaleflex\Filerobot\Model\FilerobotConfig;
 class ConfigChange implements ObserverInterface
 {
 
-    /** @var RequestInterface  */
+    /** @var RequestInterface */
     protected $request;
 
-    /** @var WriterInterface  */
+    /** @var WriterInterface */
     protected $writer;
 
     /** @var \Magento\Framework\HTTP\Client\Curl $curl */
     protected $curl;
 
     public function __construct(
-        RequestInterface $request,
-        WriterInterface $writer,
+        RequestInterface                    $request,
+        WriterInterface                     $writer,
         \Magento\Framework\HTTP\Client\Curl $curl
-    ) {
-        $this->curl    = $curl;
-        $this->writer  = $writer;
+    )
+    {
+        $this->curl = $curl;
+        $this->writer = $writer;
         $this->request = $request;
     }
 
@@ -35,8 +36,8 @@ class ConfigChange implements ObserverInterface
         $params = $this->request->getParams('groups');
         $fields = $params['groups']['general']['fields'];
 
-        $token              = $fields['token']['value'];
-        $templateId         = $fields['template_id']['value'];
+        $token = $fields['token']['value'];
+        $templateId = $fields['template_id']['value'];
 
         $status = $this->verifySetting($token, $templateId);
 
