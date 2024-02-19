@@ -251,19 +251,19 @@ $secureRenderer->renderTag('script', [], "jQuery('body').trigger('contentUpdated
                     },
                     target: '#filerobot-fmaw',
                     inline: true,
-                    width: '100%',
+                    width: '99%',
                     height: 530,
+                    disableDownloadButton: false,
+                    hideDownloadButtonIcon: true,
+                    preventDownloadDefaultBehavior: true,
+                    resetAfterClose: true,
+                    dismissUrlPathQueryUpdate: true,
                     locale: {
                         strings: {
                             mutualizedExportButtonLabel: 'Insert',
                             mutualizedDownloadButton: 'Insert',
                         }
                     },
-                    disableExportButton: false,
-                    hideExportButtonIcon: true,
-                    preventExportDefaultBehavior: true,
-                    resetAfterClose: true,
-                    dismissUrlPathQueryUpdate: true,
                 })
                 .use(XHRUpload)
                 .on('export', function (files, popupExportSuccessMsgFn, downloadFilesPackagedFn, downloadFileFn) {
@@ -306,6 +306,10 @@ $secureRenderer->renderTag('script', [], "jQuery('body').trigger('contentUpdated
     });
 </script>
 <style>
+    .filerobot-Explorer-inner {
+        max-width: 100%!important;
+        max-height: 100%!important;
+    }
     #filerobot-file-manager {
         display: inline-block;
         border: 1px solid lightgrey;

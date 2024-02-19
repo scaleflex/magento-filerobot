@@ -4,12 +4,13 @@
         <policy id="script-src">
             <values>
                 <value id="scaleflex-script" type="host">*.scaleflex.it</value>
-                <value id="scaleflex-script" type="host">*.cloudimg.io</value>
+                <value id="cloudimg-script" type="host">*.cloudimg.io</value>
             </values>
         </policy>
         <policy id="style-src">
             <values>
                 <value id="scaleflex-style" type="host">*.scaleflex.it</value>
+                <value id="cloudimg-style" type="host">*.cloudimg.io</value>
             </values>
         </policy>
         <policy id="font-src">
