@@ -17,7 +17,7 @@ define([
                 ed.ui.registry.addButton('filerobot', {
                     title: 'Filerobot DAM Widget',
                     cmd: 'mceFileRobotModal',
-                    // image: url + '/img/icon.svg',
+                    icon: 'url + '/img/icon.svg,
                     onAction: function () {
                         window.fileRobotActiveEditor = ed;
                         $("#file-robot-modal-btn").trigger('click')
