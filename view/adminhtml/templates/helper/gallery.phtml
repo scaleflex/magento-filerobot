@@ -273,6 +273,14 @@ $secureRenderer->renderTag('script', [], "jQuery('body').trigger('contentUpdated
                         let width = selected.file.info.img_w;
                         let height = selected.file.info.img_h;
 
+                        if ('download' in selected.file.url) {
+                            const download_link = new URL(selected.file.url.download)
+                            let params = new URLSearchParams(download_link.search);
+
+                            width = params.get('width');
+                            height = params.get('height');
+                        }
+
                         if (!link.includes('width=')) {
                             link += ('&width=' + width);
                         }

@@ -9,18 +9,16 @@ define([
         init: function (ed, url) {
             const t = this;
             t.editor = ed;
-            ed.contentCSS = ['filerobot'];
 
             ed.addCommand('mceFileRobotModal', t._showFilerobotModal, t);
 
             if (ed.editorManager.majorVersion === '5') {
                 ed.ui.registry.addButton('filerobot', {
-                    title: 'Filerobot DAM Widget',
-                    cmd: 'mceFileRobotModal',
-                    icon: 'url + '/img/icon.svg,
+                    tooltip: 'DAM by Scaleflex',
+                    icon: 'filerobot',
                     onAction: function () {
                         window.fileRobotActiveEditor = ed;
-                        $("#file-robot-modal-btn").trigger('click')
+                        $("#filerobot-modal-btn").trigger('click');
                     }
                 });
             } else {
@@ -30,7 +28,6 @@ define([
                     image: url + '/img/icon.svg'
                 });
             }
-
 
             ed.on('ObjectResizeStart', function (e) {
                 window.activeObject = e;
@@ -56,9 +53,9 @@ define([
                     let content = "";
 
                     if (ed.editorManager.majorVersion === '5') {
-                        content = ed.getContent({format: 'html'})
+                        content = ed.getContent({format: 'html'});
                     } else {
-                        content = ed.getContent()
+                        content = ed.getContent();
                     }
 
                     content = content.replaceAll('&amp;', '&');
@@ -72,21 +69,21 @@ define([
 
         getInfo: function () {
             return {
-                longname: 'TinyMCE File Robot plugin',
+                longname: 'TinyMCE DAM Filerobot plugin',
                 author: 'Scaleflex',
                 authorurl: 'https://www.scaleflex.com/',
                 infourl: 'https://www.scaleflex.com/',
-                version: "1.0"
+                version: "1.1"
             };
         },
 
         _showFilerobotModal: function () {
             const ed = this.editor;
             window.fileRobotActiveEditor = ed;
-            $("#file-robot-modal-btn").trigger('click')
+            $("#filerobot-modal-btn").trigger('click');
         }
     });
 
     // Register plugin
     tinymce.PluginManager.add('filerobot', tinymce.plugins.ScaleflexFilerobot);
-})
+});

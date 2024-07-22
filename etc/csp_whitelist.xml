@@ -3,19 +3,17 @@
     <policies>
         <policy id="script-src">
             <values>
-                <value id="scaleflex-script" type="host">*.scaleflex.it</value>
                 <value id="cloudimg-script" type="host">*.cloudimg.io</value>
             </values>
         </policy>
         <policy id="style-src">
             <values>
-                <value id="scaleflex-style" type="host">*.scaleflex.it</value>
                 <value id="cloudimg-style" type="host">*.cloudimg.io</value>
             </values>
         </policy>
         <policy id="font-src">
             <values>
-                <value id="scaleflex-font" type="host">*.scaleflex.it</value>
+                <value id="scaleflex-font" type="host">*.cloudimg.io</value>
             </values>
         </policy>
         <policy id="img-src">
@@ -27,7 +25,8 @@
         </policy>
         <policy id="connect-src">
             <values>
-                <value id="ultrafast" type="host">*.ultrafast.io</value>
+                <value id="ultrafast-connect" type="host">*.ultrafast.io</value>
+                <value id="cloudimg-connect" type="host">*.cloudimg.io</value>
                 <value id="filerobot-connect" type="host">*.filerobot.com</value>
             </values>
         </policy>
