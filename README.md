@@ -93,3 +93,4 @@ our [support](https://www.scaleflex.com/en/contact-us).
 ## Todo
 
 - [ ] Page Builder support
+- [ ] Bi Synchronization
