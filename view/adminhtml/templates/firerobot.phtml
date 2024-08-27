@@ -38,6 +38,9 @@
                     trigger: '#filerobot-modal-btn',
                     showFoldersTree: false,
                     preventDownloadDefaultBehavior: true,
+                    filters: {
+                        mimeTypes: ['image'],
+                    },
                     locale: {
                         strings: {
                             mutualizedExportButtonLabel: 'Insert',
@@ -47,45 +50,56 @@
                 })
                 .use(XHRUpload)
                 .on('export', function (files, popupExportSuccessMsgFn, downloadFilesPackagedFn, downloadFileFn) {
+                    window.fr_files = files;
+
                     files.forEach((selected, key) => {
-                        console.log(selected)
-                        let link = selected.file.url.cdn;
-                        let download = false;
-                        let url = new URL(link);
+                        let link = new URL(selected.file.url.cdn);
                         let width = selected.file.info.img_w;
                         let height = selected.file.info.img_h;
+                        let crop = false;
+
 
                         if ('download' in selected.file.url) {
-                            const download_link = new URL(selected.file.url.download)
-                            let params = new URLSearchParams(download_link.search);
+                            link = new URL(selected.file.url.download);
+                        }
+                        let params = new URLSearchParams(link.search);
 
+                        if (params.has('width') && params.has('height')) {
                             width = params.get('width');
                             height = params.get('height');
                         }
 
-
-                        if (!link.includes('width=')) {
-                            link += ('&width=' + width);
-                        } else {
-                            width = url.searchParams.get("width");
+                        if (params.has('tl_px')) {
+                            crop = true;
                         }
 
-                        if (!link.includes('height=')) {
-                            link += ('&height=' + height);
-                        } else {
-                            height = url.searchParams.get("height");
-                        }
+                        if (crop === false) {
+                            if (!params.has('width')) {
+                                link += ('&width=' + width);
+                            }
 
-                        window.fileRobotActiveEditor.execCommand('mceInsertContent', false, '<div>' +
-                            '<img src="' + link + '" ' +
-                            ' width="' + width + '"' +
-                            ' height="' + height + '"' +
-                            ' alt="' + selected.file.meta.title + '" /> ' +
-                            '</div>');
+                            if (!params.has('height')) {
+                                link += ('&height=' + height);
+                            }
+
+                            const img = '<div>' +
+                                '<img src="' + link + '" ' +
+                                ' width="' + width + '"' +
+                                ' height="' + height + '"' +
+                                ' alt="' + selected.file.meta.title + '" /> ' +
+                                '</div>'
+
+                            window.fileRobotActiveEditor.execCommand('mceInsertContent', false, img);
+                        } else {
+                            const img = '<div>' +
+                                '<img src="' + link + '" ' +
+                                ' alt="' + selected.file.meta.title + '" /> ' +
+                                '</div>'
+
+                            window.fileRobotActiveEditor.execCommand('mceInsertContent', false, img);
+                        }
                     })
                     window.fileRobotActiveEditor = undefined
-                    jQuery('#modal-content').modal('closeModal')
-                    files = []
                     return false
                 });
         }
@@ -117,5 +131,10 @@
     button.filerobot-u-reset.filerobot-Explorer-close span {
         font-size: 19px;
         color: tomato;
+        transition-delay: 500s;
+    }
+
+    button.filerobot-u-reset.filerobot-Explorer-close:hover {
+        border-color: tomato;
     }
 </style>

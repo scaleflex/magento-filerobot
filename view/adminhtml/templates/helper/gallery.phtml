@@ -242,6 +242,9 @@ $secureRenderer->renderTag('script', [], "jQuery('body').trigger('contentUpdated
                     trigger: '#filerobot-file-manager',
                     showFoldersTree: false,
                     preventDownloadDefaultBehavior: true,
+                    filters: {
+                        mimeTypes: ['image'],
+                    },
                     locale: {
                         strings: {
                             mutualizedExportButtonLabel: 'Insert',
@@ -251,26 +254,36 @@ $secureRenderer->renderTag('script', [], "jQuery('body').trigger('contentUpdated
                 })
                 .use(XHRUpload)
                 .on('export', function (files, popupExportSuccessMsgFn, downloadFilesPackagedFn, downloadFileFn) {
+                    window.fr_files = files;
                     files.forEach((selected, key) => {
-                        let link = selected.file.url.cdn;
-                        let url = new URL(link);
+                        let link = new URL(selected.file.url.cdn);
                         let width = selected.file.info.img_w;
                         let height = selected.file.info.img_h;
+                        let crop = false;
+
 
                         if ('download' in selected.file.url) {
-                            const download_link = new URL(selected.file.url.download)
-                            let params = new URLSearchParams(download_link.search);
+                            link = new URL(selected.file.url.download);
+                        }
+                        let params = new URLSearchParams(link.search);
 
+                        if (params.has('width') && params.has('height')) {
                             width = params.get('width');
                             height = params.get('height');
                         }
 
-                        if (!link.includes('width=')) {
-                            link += ('&width=' + width);
+                        if (params.has('tl_px')) {
+                            crop = true;
                         }
 
-                        if (!link.includes('height=')) {
-                            link += ('&height=' + height);
+                        if (crop === false) {
+                            if (!params.has('width')) {
+                                link += ('&width=' + width);
+                            }
+
+                            if (!params.has('height')) {
+                                link += ('&height=' + height);
+                            }
                         }
 
                         let imageUrl = link + "&p=" + selected.file.size.bytes;
