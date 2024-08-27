@@ -94,3 +94,4 @@ our [support](https://www.scaleflex.com/en/contact-us).
 
 - [ ] Page Builder support
 - [ ] Bi Synchronization
+- [ ] Support Video for Product and Page Builder
