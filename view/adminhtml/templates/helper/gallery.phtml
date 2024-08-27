@@ -29,9 +29,7 @@ $jsonHelper = $block->getData('jsonHelper');
             </svg>
             <span>Image Manager</span>
         </div>
-        <div id="filerobot-modal-content">
-            <div id="filerobot-fmaw"></div>
-        </div>
+        <div id="filerobot-fmaw"></div>
     <?php } ?>
     <?php foreach ($block->getImageTypes() as $typeData) {
         ?>
@@ -218,22 +216,12 @@ $jsonHelper = $block->getData('jsonHelper');
 <?= /* @noEscape */
 $secureRenderer->renderTag('script', [], "jQuery('body').trigger('contentUpdated');", false) ?>
 <script type="text/javascript">
-    require(["jquery", "Magento_Ui/js/modal/modal"], function (jQuery, modal) {
+    require(["jquery", "filerobot"], function (jQuery, modal) {
         const container = '<?php echo $block->getConfig()->getToken(); ?>';
         const templateId = '<?php echo $block->getConfig()->getTemplateId(); ?>';
         const uploadDir = '<?php echo $block->getConfig()->getUploadDir(); ?>';
 
-        var options = {
-            type: 'popup',
-            responsive: true,
-            title: '',
-            buttons: []
-        };
-
         const Filerobot = window.Filerobot;
-
-
-        var popup = modal(options, jQuery('#filerobot-modal-content'));
 
         const filerobot = Filerobot.Core({
             securityTemplateID: templateId,
@@ -250,14 +238,10 @@ $secureRenderer->renderTag('script', [], "jQuery('body').trigger('contentUpdated
                         rootFolderPath: uploadDir ?? '/'
                     },
                     target: '#filerobot-fmaw',
-                    inline: true,
-                    width: '99%',
-                    height: 530,
-                    disableDownloadButton: false,
-                    hideDownloadButtonIcon: true,
+                    inline: false,
+                    trigger: '#filerobot-file-manager',
+                    showFoldersTree: false,
                     preventDownloadDefaultBehavior: true,
-                    resetAfterClose: true,
-                    dismissUrlPathQueryUpdate: true,
                     locale: {
                         strings: {
                             mutualizedExportButtonLabel: 'Insert',
@@ -302,22 +286,12 @@ $secureRenderer->renderTag('script', [], "jQuery('body').trigger('contentUpdated
                         };
                         jQuery('#media_gallery_content').trigger('addItem', imageData);
                     })
-                    jQuery('#filerobot-modal-content').modal('closeModal')
-                    files = []
                     return false
                 });
         }
-
-        jQuery("#filerobot-file-manager").click(function () {
-            jQuery('#filerobot-modal-content').modal('openModal');
-        });
     });
 </script>
 <style>
-    .filerobot-Explorer-inner {
-        max-width: 100%!important;
-        max-height: 100%!important;
-    }
     #filerobot-file-manager {
         display: inline-block;
         border: 1px solid lightgrey;
@@ -345,5 +319,9 @@ $secureRenderer->renderTag('script', [], "jQuery('body').trigger('contentUpdated
         display: block;
         font-size: 14px;
         padding: 11px;
+    }
+
+    .filerobot-u-reset{
+        top: 0!important;
     }
 </style>

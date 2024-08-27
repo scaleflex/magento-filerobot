@@ -5,9 +5,7 @@
       href="https://scaleflex.cloudimg.io/v7/plugins/filerobot-widget/v3/stable/filerobot-widget.min.css"/>
 
 <button style="display: none" id="filerobot-modal-btn"></button>
-<div id="modal-content">
-    <div id="filerobot-widget"></div>
-</div>
+<div id="filerobot-widget"></div>
 
 <script type="text/javascript">
     require.config({
@@ -15,25 +13,12 @@
             filerobot: 'https://scaleflex.cloudimg.io/v7/plugins/filerobot-widget/v3/stable/filerobot-widget.min'
         }
     });
-    require(["jquery", "Magento_Ui/js/modal/modal", "filerobot"], function (jQuery, modal, filerobot, _) {
+    require(["jquery", "filerobot"], function (jQuery, modal, filerobot, _) {
         const container = '<?php echo $block->getConfig()->getToken(); ?>';
         const templateId = '<?php echo $block->getConfig()->getTemplateId(); ?>';
         const uploadDir = '<?php echo $block->getConfig()->getUploadDir(); ?>';
 
-        const options = {
-            type: 'popup',
-            responsive: true,
-            title: '',
-            buttons: [],
-            width: 780,
-            height: 550
-        };
-
         const Filerobot = window.Filerobot;
-
-
-        const popup = modal(options, jQuery('#modal-content'));
-
         if (container && templateId) {
             const filerobot = Filerobot.Core({
                 securityTemplateID: templateId,
@@ -49,16 +34,10 @@
                         rootFolderPath: uploadDir ?? '/'
                     },
                     target: '#filerobot-widget',
-                    inline: true,
-                    width: '100%',
-                    height: 650,
-                    disableDownloadButton: false,
-                    hideDownloadButtonIcon: true,
-                    preventDownloadDefaultBehavior: true,
-                    resetAfterClose: true,
-                    dismissUrlPathQueryUpdate: true,
-                    view: 'ASSETS',
+                    inline: false,
+                    trigger: '#filerobot-modal-btn',
                     showFoldersTree: false,
+                    preventDownloadDefaultBehavior: true,
                     locale: {
                         strings: {
                             mutualizedExportButtonLabel: 'Insert',
@@ -110,10 +89,6 @@
                     return false
                 });
         }
-
-        jQuery("#filerobot-modal-btn").click(function () {
-            jQuery('#modal-content').modal('openModal');
-        });
     });
 </script>
 
@@ -124,5 +99,23 @@
     .filerobot-Explorer-inner {
         max-width: 100%!important;
         max-height: 100%!important;
+    }
+    .filerobot-u-reset{
+        top: 0!important;
+    }
+
+    button.filerobot-u-reset.filerobot-Explorer-close {
+        border: 2px solid #efe2e2;
+        border-radius: 50px;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        justify-content: center;
+        background: white;
+    }
+
+    button.filerobot-u-reset.filerobot-Explorer-close span {
+        font-size: 19px;
+        color: tomato;
     }
 </style>
