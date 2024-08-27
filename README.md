@@ -90,8 +90,8 @@ our [support](https://www.scaleflex.com/en/contact-us).
 - [Filerobot DAM Document](https://docs.filerobot.com/go/filerobot-documentation/en/plugins-and-integrations/media-asset-widget-fmaw)
 - [Filerobot Website](https://www.scaleflex.com/en/home)
 
-## Todo
-
+## Next version improvement
+Q4-2024
 - [ ] Page Builder support
-- [ ] Bi Synchronization
 - [ ] Support Video for Product and Page Builder
+- [ ] Bi Synchronization
